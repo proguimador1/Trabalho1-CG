@@ -18,4 +18,4 @@ while True:
 
     pygame.display.update( )
 
-    pr.polygon(screen, (width//2,heigth//2), 5, 150, 100, (250,250,250))
+    

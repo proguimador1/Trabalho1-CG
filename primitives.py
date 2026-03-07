@@ -1,5 +1,6 @@
 from pygame import Surface
 import math
+from collections import deque
 
 def set_pixel(screen:Surface, x:int, y:int, color):
     screen.set_at((x, y), color)
@@ -85,31 +86,41 @@ def circle(screen:Surface, radius:int, center:tuple[int, int], color):
         y -= 1
         d += 2 * (x - y) + 1
 
-# ainda precisa de refinamento
+# Obs: 
+# ainda não funciona com triângulos; 
+# é preciso adicionar uma forma de definir o ângulo do polígono.
 def polygon(screen:Surface, center:tuple[int,int], num_sides:int, width:int, heigth:int, color):
     """
     Calcula as coordenadas dos vértices de um polígono 
     usando parametrização elíptica, e então desenha o
     contorno desse polígono ao redor do ponto central
-    especificado.
+    especificado usando line() e uma estrutura de
+    fila circular.
     center: Coordenadas do centro do polígono.
     num_sides: Número de arestas do polígono.
     width: Largura do polígono.
     heigth: Altura do polígono.
     """
-    cx, cy = center
-    vertices = []
+    if num_sides < 3:
+        return
 
+    cx, cy = center
+    queue = deque()
+
+    # gerar os vértices
     for i in range(num_sides):
         theta = 2 * math.pi * i / num_sides
 
-        x = int(round(cx + (width/2) * math.cos(theta)))
-        y = int(round(cy + (heigth/2) * math.sin(theta)))
+        x = int(round(cx + (width / 2) * math.cos(theta)))
+        y = int(round(cy + (heigth / 2) * math.sin(theta)))
 
-        vertices.append(x, y)
+        queue.append((x, y))
 
-    # desenha as arestas
-    for i in range(num_sides):
-        start = vertices[i]
-        end = vertices[(i + 1) % num_sides]
+     # percorrer arestas usando fila circular
+    for _ in range(num_sides):
+        start = queue[0]
+        end = queue[1]
+
         line(screen, start, end, color)
+
+        queue.rotate(-1)
