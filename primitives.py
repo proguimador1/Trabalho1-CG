@@ -86,41 +86,21 @@ def circle(screen:Surface, radius:int, center:tuple[int, int], color):
         y -= 1
         d += 2 * (x - y) + 1
 
-# Obs: 
-# ainda não funciona com triângulos; 
-# é preciso adicionar uma forma de definir o ângulo do polígono.
-def polygon(screen:Surface, center:tuple[int,int], num_sides:int, width:int, heigth:int, color):
+def polygon(screen:Surface, points:list[tuple[int, int]], color):
     """
-    Calcula as coordenadas dos vértices de um polígono 
-    usando parametrização elíptica, e então desenha o
-    contorno desse polígono ao redor do ponto central
-    especificado usando line() e uma estrutura de
-    fila circular.
-    center: Coordenadas do centro do polígono.
-    num_sides: Número de arestas do polígono.
-    width: Largura do polígono.
-    heigth: Altura do polígono.
+    Usa a função line e uma estrutura de lista circular
+    para desenhar polígonos dentro do canvas.
+    points: lista de coordenadas dos pontos que 
+    correspondem aos vértices do polígono.
     """
-    if num_sides < 3:
-        return
+    n = len(points)
+    if n < 2:
+        return  # Não é possível desenhar uma linha com menos de 2 pontos
 
-    cx, cy = center
-    queue = deque()
-
-    # gerar os vértices
-    for i in range(num_sides):
-        theta = 2 * math.pi * i / num_sides
-
-        x = int(round(cx + (width / 2) * math.cos(theta)))
-        y = int(round(cy + (heigth / 2) * math.sin(theta)))
-
-        queue.append((x, y))
-
-     # percorrer arestas usando fila circular
-    for _ in range(num_sides):
-        start = queue[0]
-        end = queue[1]
-
-        line(screen, start, end, color)
-
-        queue.rotate(-1)
+    for i in range(n):
+        # O operador % (módulo) cria a estrutura de lista circular
+        # Quando i é o último índice (n-1), (i + 1) % n volta para 0
+        start_point = points[i]
+        end_point = points[(i + 1) % n]
+        
+        line(screen, start_point, end_point, color)
