@@ -18,5 +18,7 @@ while True:
 
     pygame.display.update()
 
-    triangulo = [(400, 400), (200,600), (500,600)]
-    pr.polygon(screen, triangulo, (250,250,250))
+    retangulo = [(300, 300), (500,300), (500,400), (300,400)]
+    pr.polygon(screen, retangulo, (250,250,250))
+
+    pr.circle(screen, 50, (200, 200), (250,250,250))
