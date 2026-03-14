@@ -162,7 +162,7 @@ def circle(screen:Surface, radius:int, center:tuple[int, int], color, fill=True)
         d += 2 * (x - y) + 1
 
     if fill:
-        flood_fill(screen, center, color)
+        scan_line_circle(screen,radius,center,color)
 
 def polygon(screen:Surface, points:list[tuple[int, int]], color, fill=True):
     """
@@ -185,7 +185,4 @@ def polygon(screen:Surface, points:list[tuple[int, int]], color, fill=True):
 
     if fill:
         # Calcula o centroide (média de x e média de y)
-        avg_x = sum(p[0] for p in points) // n
-        avg_y = sum(p[1] for p in points) // n
-        
-        flood_fill(screen, (avg_x, avg_y), color)
+        scan_line_polygon(screen, points, color)
