@@ -1,5 +1,6 @@
 from pygame import Surface
 from collections import deque
+import math
 
 
 def scan_line_polygon(screen:Surface, points:list[tuple[int, int]], color):
@@ -37,18 +38,49 @@ def scan_line_polygon(screen:Surface, points:list[tuple[int, int]], color):
                 for x in range(x_start, x_end + 1):
                     set_pixel(screen, x, y, color)
 
-def scan_line_circle(screen:Surface, radius:int, center:tuple[int, int], color):
+def scan_line_ellipsis(screen:Surface, x_radius:int, y_radius:int, center:tuple[int, int], color):
+    """
+    Usa o algoritmo de scanline aplicado a elipses.
+    x_radius: raio da elipse na horizontal
+    y_radius: raio da elipse na vertical
+    center: coordenadas do ponto central da elipse
+    """
     cx, cy = center
     
-    # Percorre as linhas de y_min até y_max do círculo
-    for y in range(-radius, radius + 1):
-        # Largura da linha no círculo usando: x^2 + y^2 = r^2 -> x = sqrt(r^2 - y^2)
-        import math
-        x_width = int(math.sqrt(radius**2 - y**2))
+    # se os raios forem iguais, 
+    # faz para circunferências
+    if x_radius == y_radius:
+        radius = x_radius
+        # Percorre as linhas de y_min até y_max do círculo
+        for y in range(-radius, radius + 1):
+            # Largura da linha no círculo usando: x^2 + y^2 = r^2 -> x = sqrt(r^2 - y^2)
+            
+            x_width = int(math.sqrt(radius**2 - y**2))
+            
+            # Desenha a linha horizontal preenchendo o círculo
+            x_start = cx - x_width
+            x_end = cx + x_width
+            for x in range(x_start, x_end + 1):
+                set_pixel(screen, x, cy + y, color)
+
+        return
+    
+    # Caso Geral: Elipse
+    # Percorremos o eixo Y de -y_radius até +y_radius
+    for y in range(-y_radius, y_radius + 1):
+        # Aplicando a fórmula derivada da equação da elipse:
+        # x = x_radius * sqrt(1 - (y^2 / y_radius^2))
         
-        # Desenha a linha horizontal preenchendo o círculo
+        # Usamos float para o cálculo e depois truncamos
+        term = 1 - (y**2 / y_radius**2)
+        
+        # Prevenção de erros de precisão numérica que resultem em valores negativos ínfimos
+        x_width = int(x_radius * math.sqrt(max(0, term)))
+        
         x_start = cx - x_width
         x_end = cx + x_width
+        
+        # Desenha a linha horizontal (Scanline)
         for x in range(x_start, x_end + 1):
             set_pixel(screen, x, cy + y, color)
 
@@ -180,6 +212,9 @@ def ellipisis(screen:Surface, x_radius:int, y_radius:int, center:tuple[int, int]
             dy -= two_a2
             p2 += dx - dy + a2
 
+    if fill:
+        scan_line_ellipsis(screen,x_radius,y_radius,center,color)
+
 def circle(screen:Surface, radius:int, center:tuple[int, int], color, fill=True):
     """
     Usa o Midpoint Circle Algorithm junto a
@@ -224,7 +259,7 @@ def circle(screen:Surface, radius:int, center:tuple[int, int], color, fill=True)
         d += 2 * (x - y) + 1
 
     if fill:
-        scan_line_circle(screen,radius,center,color)
+        scan_line_ellipsis(screen,radius, radius,center,color)
 
 def polygon(screen:Surface, points:list[tuple[int, int]], color, fill=True):
     """
