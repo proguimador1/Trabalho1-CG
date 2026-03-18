@@ -21,4 +21,5 @@ while True:
     retangulo = [(300, 300), (500,300), (500,400), (300,400)]
     pr.polygon(screen, retangulo, (250,250,250))
 
-    pr.circle(screen, 50, (200, 200), (250,250,250))
+    pr.ellipisis(screen, 50, 80, (200, 200), (250,250,250))
+
