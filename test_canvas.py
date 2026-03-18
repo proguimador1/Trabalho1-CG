@@ -3,7 +3,7 @@ import sys
 
 import primitives as pr
 
-width = 800
+width = 900
 heigth = 800
 
 pygame.init()
@@ -17,3 +17,9 @@ while True:
             sys.exit()
 
     pygame.display.update()
+
+    retangulo = [(300, 300), (500,300), (500,400), (300,400)]
+    pr.polygon(screen, retangulo, (250,250,250))
+
+    pr.ellipisis(screen, 50, 90, (200, 200), (250,250,250))
+
