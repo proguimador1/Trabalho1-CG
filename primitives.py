@@ -27,16 +27,16 @@ def scan_line_polygon(screen:Surface, points:list[tuple[int, int]], color):
                 tx = p1[0] + (y - p1[1]) * (p2[0] - p1[0]) / (p2[1] - p1[1])
                 intersections.append(int(tx))
 
-    # 3. Ordenar as intersecções da esquerda para a direita
-    intersections.sort()
+        # 3. Ordenar as intersecções da esquerda para a direita
+        intersections.sort()
 
-    # 4. Preencher os pixels entre os pares de intersecções
-    for i in range(0, len(intersections), 2):
-        if i + 1 < len(intersections):
-            x_start = intersections[i]
-            x_end = intersections[i+1]
-            for x in range(x_start, x_end + 1):
-                set_pixel(screen, x, y, color)
+        # 4. Preencher os pixels entre os pares de intersecções
+        for i in range(0, len(intersections), 2):
+            if i + 1 < len(intersections):
+                x_start = intersections[i]
+                x_end = intersections[i+1]
+                for x in range(x_start, x_end + 1):
+                    set_pixel(screen, x, y, color)
 
 def scan_line_ellipsis(screen:Surface, x_radius:int, y_radius:int, center:tuple[int, int], color):
     """
