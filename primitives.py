@@ -148,7 +148,7 @@ def line(screen:Surface, start:tuple[int, int], end:tuple[int, int], color):
             err += dx
             y1 += y_iter
 
-def ellipisis(screen:Surface, x_radius:int, y_radius:int, center:tuple[int, int], color, fill=True):
+def ellipisis(screen:Surface, x_radius:int, y_radius:int, center:tuple[int, int], color):
     """
     Usa o Midpoint Algorithm para elipses
     junto a set_pixel() para desenhar uma
@@ -212,10 +212,10 @@ def ellipisis(screen:Surface, x_radius:int, y_radius:int, center:tuple[int, int]
             dy -= two_a2
             p2 += dx - dy + a2
 
-    if fill:
-        scan_line_ellipsis(screen,x_radius,y_radius,center,color)
+    """if fill:
+        scan_line_ellipsis(screen,x_radius,y_radius,center,color)"""
 
-def circle(screen:Surface, radius:int, center:tuple[int, int], color, fill=True):
+def circle(screen:Surface, radius:int, center:tuple[int, int], color):
     """
     Usa o Midpoint Circle Algorithm junto a
     set_pixel() para desenhar um círculo na tela
@@ -258,10 +258,10 @@ def circle(screen:Surface, radius:int, center:tuple[int, int], color, fill=True)
         y -= 1
         d += 2 * (x - y) + 1
 
-    if fill:
-        scan_line_ellipsis(screen,radius, radius,center,color)
+    """if fill:
+        scan_line_ellipsis(screen,radius, radius,center,color)"""
 
-def polygon(screen:Surface, points:list[tuple[int, int]], color, fill=True):
+def polygon(screen:Surface, points:list[tuple[int, int]], color):
     """
     Usa a função line e uma estrutura de lista circular
     para desenhar polígonos dentro do canvas.
@@ -280,6 +280,6 @@ def polygon(screen:Surface, points:list[tuple[int, int]], color, fill=True):
         
         line(screen, start_point, end_point, color)
 
-    if fill:
+    """if fill:
         # Calcula o centroide (média de x e média de y)
-        scan_line_polygon(screen, points, color)
+        scan_line_polygon(screen, points, color)"""
