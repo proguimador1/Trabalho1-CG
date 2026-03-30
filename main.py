@@ -6,12 +6,22 @@ width = 1000
 height = 700
 fullscreen = False
 
+#####################
+def get_mouse_pos():
+    return pygame.mouse.get_pos()
+
+#####################
+
 pygame.init()
 
 screen = pygame.display.set_mode((width, height))
 
 while True:
     for event in pygame.event.get():
+        # TEMPORÁRIA##############
+        x, y = get_mouse_pos()
+        print(x, y)
+        ##########################
 
         if event.type == pygame.QUIT:
             pygame.quit()
