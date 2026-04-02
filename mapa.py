@@ -38,10 +38,28 @@ def desenhar_mapa(screen):
     pr.scan_line_ellipsis(screen, 17,17, (102,510), (178, 116, 0))
     pr.circle(screen, 17, (102,510), (0, 0, 0))
 
-    #Janela
-    janela =  [(500,315),(700,315),(700, 415),(500, 415)]
-    pr.scan_line_polygon(screen, janela, (0,0,0))
-    pr.polygon(screen, janela, (255,255,255))
+    # TV
+    tv =  [(500,290),(700,290),(700, 390),(500, 390)]
+    pr.scan_line_polygon(screen, tv, (0,0,0))
+    pr.polygon(screen, tv, (0,0,0))
+    
+    # Suporte da TV
+    suporte_tv = [(597,390),(605,390),(605,400),(665,400),(665,407),(535,407),(535,400),(597,400),(597,390)]
+    pr.scan_line_polygon(screen, suporte_tv, (0,0,0))
+    pr.polygon(screen, suporte_tv, (0,0,0))
+
+    # Linha para luzes da TV
+    line(screen, (500,385),(700, 385), (255,255,255))
+
+    # Luzes TV
+    pr.set_pixel(screen, 598, 387, (255,0,0))
+    pr.set_pixel(screen, 604, 387, (0,255,0))
+
+    # Prateleira TV
+    prateleira_tv = [(500,408),(700,408),(700,422),(680,422),(680,434),(665,434),(665,422),(520,422),(520,434),(535,434),(535,422),(500,422),(500,408)]
+    pr.polygon(screen, prateleira_tv, (0,0,0))
+    pr.scan_line_polygon(screen, prateleira_tv, (181, 101, 29))
+
 
     #Porta
     porta = [(325,315),(470,315),(470,530),(400,530), (400,700), (325, 700), (325,530)]
@@ -67,9 +85,9 @@ def desenhar_mapa(screen):
     pr.polygon(screen, macaneta2, (0,0,0))
 
     #Prateleira
-    pateleira = [(550,490),(720,490),(720,505),(550,505)]
-    pr.polygon(screen, pateleira, (0,0,0))
-    pr.scan_line_polygon(screen, pateleira, (181, 101, 29))
+    pateleira_micro = [(550,490),(720,490),(720,505),(550,505)]
+    pr.polygon(screen, pateleira_micro, (0,0,0))
+    pr.scan_line_polygon(screen, pateleira_micro, (181, 101, 29))
 
     #Suportes 1 e 2
     suporte1_prateleira =[(580,505),(590,505),(590,515), (580,515)]
@@ -113,7 +131,7 @@ def desenhar_mapa(screen):
     pr.line(screen, (0,505), (45,505), (0,0,0))
     
     #Boca do caixa
-    pr.scan_line_ellipsis(screen, 17,17, (102,510), (178, 116, 0))
+    pr.scan_line_ellipsis(screen, 17,17, (102,510), (200, 140, 30))
     pr.circle(screen, 17, (102,510), (0, 0, 0))
 
     # Relógio de parede
@@ -123,9 +141,16 @@ def desenhar_mapa(screen):
     pr.scan_line_ellipsis(screen, 25,25, (240,360), (255,255,255))
 
     #Salgado
-    pr.ellipisis(screen, 15,8,(670,570), (230, 140, 40))
-    pr.scan_line_ellipsis(screen,15,8,(670,570), (230, 140, 40))
+    pr.circle(screen,8, (670,570),(230,140,40))
     
+    pr.scan_line_ellipsis(screen, 6,12, (670,568), (230,140,40))
+    pr.scan_line_ellipsis(screen,8,8,(670,570), (230, 140, 40))
+    
+    # Papel do salgado
+    papel = [(662,570),(679,570),(676,581),(665,581)]
+    pr.scan_line_polygon(screen,papel, (245, 222, 179))
+
+
     #Painel micro-ondas
     painel = [(645,455),(660,455),(660,480),(645,480)]
     pr.scan_line_polygon(screen, painel, (60, 60, 65))
@@ -139,6 +164,23 @@ def desenhar_mapa(screen):
     #Y
     pr.line(screen, (650,465),(650,480),(0,0,0))
     pr.line(screen, (655,465),(655,480), (0,0,0))
+
+    # Lâmpada 1
+    base_lamp1 = [(325,125),(341,125),(341,165),(325,165)]
+    pr.scan_line_polygon(screen, base_lamp1, (128, 128, 128))
+    pr.scan_line_ellipsis(screen, 8,8, (333,165),(255, 223, 120))
+    tr_base1 = [(315,165),(333,152),(352,165)]
+    pr.scan_line_polygon(screen, tr_base1, (128, 128, 128))
+    
+
+    # Lâmpada 2
+    base_lamp2 = [(658,125),(674,125),(674,165),(658,165)]
+    pr.scan_line_polygon(screen, base_lamp2, (128, 128, 128))
+    pr.scan_line_ellipsis(screen, 8,8, (666,165),(255, 223, 120))
+    tr_base2 = [(648,165),(666,152),(685,165)]
+    pr.scan_line_polygon(screen, tr_base2, (128, 128, 128))    
+
+
 
 
     #COLORAÇÃO

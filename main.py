@@ -37,7 +37,7 @@ while True:
                 else:
                     screen = pygame.display.set_mode((width,height))
 
-    screen.fill((178, 116, 0))
+    screen.fill((200, 140, 30))
 
     mp.desenhar_mapa(screen)
 
