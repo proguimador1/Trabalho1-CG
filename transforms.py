@@ -47,7 +47,7 @@ def rotate_matrix(theta:float):
         [0, 0, 1],
     ])
 
-def create_transform(screen:Surface, points:list[tuple[int,int]] | tuple[int,int], 
+def create_transform(points:list[tuple[int,int]] | tuple[int,int], 
                      delta:tuple[int,int] | None = None, theta:float | None = None):
     """
     Criar uma transformação para uma primitiva 
@@ -57,7 +57,7 @@ def create_transform(screen:Surface, points:list[tuple[int,int]] | tuple[int,int
     for passado, retorn None.
 
     <h2>Parâmetros:</h2>
-    screen: O quadro canvas que contém a primitva
+    points: Os vértices da primitiva
     delta: Uma tupla (tx,ty), onde tx e ty correspondem
     às translações nos seus respectivos eixos
     theta: Ângulo de rotação, em graus
@@ -102,4 +102,4 @@ def create_transform(screen:Surface, points:list[tuple[int,int]] | tuple[int,int
     new_point_matrix = new_point_matrix.astype(int)
     new_points = list(zip(new_point_matrix[0], new_point_matrix[1]))
 
-    pr.polygon(screen, new_points, (250,250,250))
+    return new_points

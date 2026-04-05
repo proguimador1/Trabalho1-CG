@@ -2,7 +2,7 @@ import pygame
 import sys
 
 import primitives as pr
-import transforms as trs
+from transforms import create_transform
 
 width = 900
 heigth = 800
@@ -10,11 +10,12 @@ heigth = 800
 pygame.init()
 
 screen = pygame.display.set_mode((width, heigth))
-losango = [(300, 300), (500,500), (300,700), (100,500)]
+losango0 = losango =  [(300, 300), (500,500), (300,700), (100,500)]
 
 rotating = translating = False
 
 while True:
+    screen.fill((0,0,0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -30,17 +31,17 @@ while True:
             
         # Detecta o soltar da tecla Espaço
         if event.type == pygame.KEYUP:
-            screen.fill((0,0,0))
             rotating = False
             translating = False
 
     if rotating:
-        screen.fill((0,0,0))
-        trs.create_transform(screen, losango, theta=90)
+        losango = create_transform(losango0, theta=45)
     elif translating:
-        screen.fill((0,0,0))
-        trs.create_transform(screen, losango, delta=(50, 50))
+        losango = create_transform(losango0, delta=(80, -20))
     else:
-        pr.polygon(screen, losango, (250,250,250))
+        losango = losango0
+
+    pr.polygon(screen, losango, (250,250,250))
+    pr.scan_line_polygon(screen, losango, (250,250,250))
     
-    pygame.display.flip()
+    pygame.display.update()
