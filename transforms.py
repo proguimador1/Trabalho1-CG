@@ -66,7 +66,9 @@ def create_transform(screen:Surface, points:list[tuple[int,int]] | tuple[int,int
     # retorna none se não recebeu valor
     if not (delta or theta): return
 
-    trans_m = None
+    # Define a transformação incial como 
+    # uma matriz identidade 3x3
+    trans_m = np.eye(3)
 
     x_coor = [p[0] for p in points]
     y_coor = [p[1] for p in points]
@@ -77,20 +79,24 @@ def create_transform(screen:Surface, points:list[tuple[int,int]] | tuple[int,int
     centroid_y = np.mean(y_coor)
 
     if delta:
-        ...
+        # Matriz de translação
+        transfer_m = transfer_matrix(delta)
+
+        # Multiplicação matricial que translada os pontos
+        trans_m = transfer_m @ trans_m
 
     if theta:
-        # Matriz para mover o centro do objeto para a origem (0,0)
-        to_origin = np.array(transfer_matrix((-centroid_x, -centroid_y)))
+        # Matriz que translada o centro do objeto para a origem (0,0)
+        origin = transfer_matrix((-centroid_x, -centroid_y))
         
         # Matriz de rotação
         rotate_m = rotate_matrix(theta)
 
-        # Matriz para mover de volta ao centro original
-        from_origin = np.array(transfer_matrix((centroid_x, centroid_y)))
+        # Matriz que translada de volta ao centro original
+        back = transfer_matrix((centroid_x, centroid_y))
 
         # Multiplicação matricial que rotaciona os pontos
-        trans_m = from_origin @ rotate_m @ to_origin
+        trans_m = back @ rotate_m @ origin
 
     new_point_matrix = trans_m @ point_matrix
     new_point_matrix = new_point_matrix.astype(int)
