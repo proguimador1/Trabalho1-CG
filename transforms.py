@@ -100,6 +100,7 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
 
     new_point_matrix = trans_m @ point_matrix
     new_point_matrix = new_point_matrix.astype(int)
-    new_points = list(zip(new_point_matrix[0], new_point_matrix[1]))
 
+    new_points = list(zip(new_point_matrix[0], new_point_matrix[1]))
+    
     return new_points
