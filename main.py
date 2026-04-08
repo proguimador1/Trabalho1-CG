@@ -15,6 +15,8 @@ def get_mouse_pos():
 pygame.init()
 
 screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Duelo Salgado")
+
 
 while True:
     for event in pygame.event.get():
