@@ -4,6 +4,30 @@ import numpy as np
 
 import primitives as pr
 
+def I_matrix():
+    return [
+        [1, 0, 0],
+        [0, 1, 0],
+        [0, 0, 1],
+    ]
+
+
+def matrix_product(matrix1, matrix2):
+
+    num_lines1 = len(matrix1)
+    num_col1 = len(matrix1[0])
+    num_col2 = len(matrix2[0])
+
+    elements = [[0 for _ in range(num_col2)] for _ in range(num_lines1)]
+    
+    for i in range(num_lines1):
+        for j in range(num_col2):
+            for k in range(num_col1):
+                elements[i][j] += matrix1[i][k] * matrix2[k][j]
+
+    return elements
+
+
 def transfer_matrix(delta:tuple[int,int]):
     """
     Retorna uma matriz de translação para mover 
@@ -19,11 +43,11 @@ def transfer_matrix(delta:tuple[int,int]):
     tx, ty = delta
 
     # retorna a matriz de translação
-    return np.array([
+    return [
         [1, 0, tx],
         [0, 1, ty],
         [0, 0, 1],
-    ])
+    ]
 
 def rotate_matrix(theta:float):
     """
@@ -41,11 +65,11 @@ def rotate_matrix(theta:float):
 
     # retorna a matriz de rotação 
     # baseada em theta
-    return np.array([
+    return [
         [cos_r, -sen_r, 0],
         [sen_r, cos_r, 0],
         [0, 0, 1],
-    ])
+    ]
 
 def create_transform(points:list[tuple[int,int]] | tuple[int,int], 
                      delta:tuple[int,int] | None = None, theta:float | None = None):
@@ -68,22 +92,22 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
 
     # Define a transformação incial como 
     # uma matriz identidade 3x3
-    trans_m = np.eye(3)
-
+    trans_m = I_matrix()
     x_coor = [p[0] for p in points]
     y_coor = [p[1] for p in points]
+    bottom = [1 for _ in range(len(points))]
 
-    point_matrix = np.array([x_coor, y_coor, np.ones(len(points))])
+    centroid_x = sum(x_coor) / len(x_coor)
+    centroid_y = sum(y_coor) / len(y_coor)
 
-    centroid_x = np.mean(x_coor)
-    centroid_y = np.mean(y_coor)
+    point_matrix = [x_coor, y_coor, bottom]
 
     if delta:
         # Matriz de translação
         transfer_m = transfer_matrix(delta)
 
         # Multiplicação matricial que translada os pontos
-        trans_m = transfer_m @ trans_m
+        trans_m = matrix_product(transfer_m, trans_m)
 
     if theta:
         # Matriz que translada o centro do objeto para a origem (0,0)
@@ -96,10 +120,11 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
         back = transfer_matrix((centroid_x, centroid_y))
 
         # Multiplicação matricial que rotaciona os pontos
-        trans_m = back @ rotate_m @ origin
+        trans_m = matrix_product(rotate_m, origin)
+        trans_m = matrix_product(back, trans_m)
 
-    new_point_matrix = trans_m @ point_matrix
-    new_point_matrix = new_point_matrix.astype(int)
+    new_point_matrix = matrix_product(trans_m, point_matrix)
+    new_point_matrix = [[round(e) for e in linha] for linha in new_point_matrix]
 
     new_points = list(zip(new_point_matrix[0], new_point_matrix[1]))
     

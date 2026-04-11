@@ -15,13 +15,9 @@ class Clock:
         pr.line(self.screen, self.fix_point, self.other_point, self.color)
 
     def run_clock(self):
-        p1 = self.fix_point
 
-        new_p1, self.other_point = create_transform((p1,self.other_point), theta=10)
+        theta = 0.1
 
-        deltax = p1[0]-new_p1[0]
-        deltay = p1[1]-new_p1[1]
-
-        _, self.other_point = create_transform((new_p1, self.other_point), delta=(deltax, deltay))
+        self.other_point = create_transform([self.other_point, (0,0)], theta=theta)[0]
 
         self.draw_clock()
