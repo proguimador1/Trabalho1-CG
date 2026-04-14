@@ -1,6 +1,4 @@
-from pygame import Surface
 import math
-import numpy as np
 
 import primitives as pr
 
@@ -97,8 +95,8 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
     y_coor = [p[1] for p in points]
     bottom = [1 for _ in range(len(points))]
 
-    centroid_x = sum(x_coor) / len(x_coor)
-    centroid_y = sum(y_coor) / len(y_coor)
+    centroid_x = sum(x_coor) // len(x_coor)
+    centroid_y = sum(y_coor) // len(y_coor)
 
     point_matrix = [x_coor, y_coor, bottom]
 
@@ -122,6 +120,8 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
         # Multiplicação matricial que rotaciona os pontos
         trans_m = matrix_product(rotate_m, origin)
         trans_m = matrix_product(back, trans_m)
+
+    #trans_m = [[round(e) for e in linha] for linha in trans_m]
 
     new_point_matrix = matrix_product(trans_m, point_matrix)
     new_point_matrix = [[round(e) for e in linha] for linha in new_point_matrix]

@@ -20,7 +20,8 @@ screen = pygame.display.set_mode((width, heigth))
 
 #relogio.draw_clock()
 
-linha = [(400, 400), (500, 500)]
+points = losango = [(300, 300), (400, 300), (400, 400), (300, 400)]
+theta = 0.01
 
 while True:
     screen.fill((0,0,0))
@@ -33,12 +34,15 @@ while True:
         #if event.type == pygame.KEYDOWN:
             #if event.key == pygame.K_SPACE:
         
-    pr.line(screen, linha[0], linha[1], (40, 70, 120))
+    pr.polygon(screen, points, (40, 70, 120))
+    pr.scan_line_polygon(screen, points, (40, 200, 100))
+    
+    points = create_transform(losango, theta=theta)
 
-    linha = create_transform(linha, theta=10)
-
-    #print(linha)
+    theta += 0.01
 
     pygame.display.update()
 
-    time.sleep(1)
+    print(points)
+
+    #time.sleep(1)

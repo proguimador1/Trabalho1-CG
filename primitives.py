@@ -117,36 +117,47 @@ def line(screen:Surface, start:tuple[int, int], end:tuple[int, int], color):
     start: Coordenadas do ponto inicial do segmento.
     end: Coordenadas do ponto final do segmento.
     """
+    x0, y0 = start
+    x1, y1 = end
 
-    x1, y1 = start
-    x2, y2 = end
+    steep = abs(y1 - y0) > abs(x1 - x0)
+    if steep:
+        x0, y0 = y0, x0
+        x1, y1 = y1, x1
 
-    dx = abs(x2 - x1)
-    dy = abs(y2 - y1)
+    if x0 > x1:
+        x0, x1 = x1, x0
+        y0, y1 = y1, y0
 
-    # decide se x ou y devem ser
-    # incrementados ou decrementados
-    x_iter = 1 if x1 < x2 else -1
-    y_iter = 1 if y1 < y2 else -1
+    dx = x1 - x0
+    dy = y1 - y0
 
-    # indica se as distâncias nos eixos x e y são diferentes
-    err = dx - dy
+    ystep = 1
+    if dy < 0:
+        ystep = -1
+        dy = -dy
 
-    while True:
-        set_pixel(screen, x1, y1, color)
+    # Bresenham clássico
+    d = 2 * dy - dx
+    incE = 2 * dy
+    incNE = 2 * (dy - dx)
 
-        if x1 == x2 and y1 == y2:
-            break
-        
-        # decide se x1 ou y1 devem
-        # ser alterados
-        if 2 * err > -dy:
-            err -= dy
-            x1 += x_iter
+    x = x0
+    y = y0
 
-        if 2 * err < dx:
-            err += dx
-            y1 += y_iter
+    while x <= x1:
+        if steep:
+            set_pixel(screen, y, x, color)
+        else:
+            set_pixel(screen, x, y, color)
+
+        if d <= 0:
+            d += incE
+        else:
+            d += incNE
+            y += ystep
+
+        x += 1
 
 def ellipisis(screen:Surface, x_radius:int, y_radius:int, center:tuple[int, int], color):
     """
