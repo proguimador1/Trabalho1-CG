@@ -140,15 +140,21 @@ def desenhar_mapa(screen):
     pr.scan_line_ellipsis(screen, 30,30, (240,360), (0,0,0))
     pr.scan_line_ellipsis(screen, 25,25, (240,360), (255,255,255))
 
+    # Ponteiro maior
+    pr.line(screen, (240,360), (240, 340), (0,0,0))
+
+    # Ponteiro menor
+    pr.line(screen, (240, 360), (252,360), (0,0,0))
+
     #Salgado
-    pr.circle(screen,8, (670,570),(230,140,40))
-    
-    pr.scan_line_ellipsis(screen, 6,12, (670,568), (230,140,40))
-    pr.scan_line_ellipsis(screen,8,8,(670,570), (230, 140, 40))
-    
+    pr.scan_line_ellipsis(screen, 7,12, (670,566), (230,140,40)) # 8, 12, (670,566)
+    pr.scan_line_ellipsis(screen,10,10,(670,570), (230, 140, 40)) # 10,10,(670,570)
+    pr.scan_line_ellipsis(screen, 2,2, (670,555), (230,140,40)) # 2,2,(670,554)
+
+
     # Papel do salgado
-    papel = [(662,570),(679,570),(676,581),(665,581)]
-    pr.scan_line_polygon(screen,papel, (245, 222, 179))
+    #papel = [(662,570),(679,570),(676,581),(665,581)]
+    #pr.scan_line_polygon(screen,papel, (245, 222, 179))
 
 
     #Painel micro-ondas
