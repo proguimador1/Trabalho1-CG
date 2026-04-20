@@ -31,8 +31,8 @@ while rodando:
     tela.fill((255, 165, 0))
 
     vertices = [(250, 250), (550, 250), (550, 300), (250, 300)]
-    polygon(tela, vertices, (0, 0, 0))
-    flood_fill(tela, (255, 255), (128, 128, 128))
+    ellipisis(tela, 150, 25, (400, 275), (0, 0, 0))
+    flood_fill(tela, (410, 285), (128, 128, 128))
 
     t1 = font.render("Opção 1", True, (0, 0, 0))
     cx, cy = centro_botao(vertices)
@@ -40,9 +40,9 @@ while rodando:
     altura = t1.get_height()
     tela.blit(t1, (cx - largura // 2, cy - altura // 2))
 
-    vertices = [(270, 430), (530, 430), (530, 470), (270, 470)]
-    polygon(tela, vertices, (0, 0, 0))
-    flood_fill(tela, (275, 435), (128, 128, 128))
+    vertices = [(250, 430), (550, 430), (550, 470), (250, 470)]
+    ellipisis(tela, 150, 25, (400, 450), (0, 0, 0))
+    flood_fill(tela, (410, 460), (128, 128, 128))
 
     t2 = font.render("Sair", True, (0, 0, 0))
     cx, cy = centro_botao(vertices)
@@ -54,6 +54,15 @@ while rodando:
     largura = text_surface.get_width()
     altura = text_surface.get_height()
     tela.blit(text_surface, (400 - largura / 2, 100))
+
+    vertices = [
+        (100, 100),
+        (700, 100),
+        (700, 170),
+        (100, 170),
+    ]
+    polygon(tela, vertices, (0, 0, 0))
+    flood_fill(tela, (110, 110), (255, 0, 0))
 
     vertices = [
         (330, 325),
