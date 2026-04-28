@@ -21,7 +21,7 @@ radius = 200
 theta1 = 0.5
 theta2 = 0.3
 
-clock = Clock(screen,pointer1, pointer2, fix_point, radius)
+clock = Clock(screen,pointer2, pointer1, fix_point, radius)
 
 while True:
     screen.fill((0,0,0))
@@ -36,7 +36,7 @@ while True:
 
     #theta += 1
 
-    clock.run_clock(theta1, theta2)
+    clock.run_clock(0.0, theta2)
 
     pygame.display.flip()
     

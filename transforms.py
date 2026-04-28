@@ -87,7 +87,7 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
     """
     
     # retorna none se não recebeu valor
-    if not (delta or theta): return
+    if delta == None and theta == None: return
 
     # Define a transformação incial como 
     # uma matriz identidade 3x3

@@ -16,7 +16,6 @@ class Clock:
         pr.line(self.screen, self.small_pointer[0], self.small_pointer[1], (250,250,250))
 
     def run_clock(self, angle_big:float, angle_small:float):
-        # Rotaciona apenas a ponta final (self.big_pointer[1]) usando o fix_point como pivô
         new_big_end = create_transform(
             [self.big_pointer[1]], 
             theta=angle_big, 
