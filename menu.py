@@ -31,8 +31,9 @@ while rodando:
     tela.fill((255, 165, 0))
 
     vertices = [(250, 250), (550, 250), (550, 300), (250, 300)]
-    pr.ellipisis(tela, 150, 25, (400, 325), (0, 0, 0))
-    pr.flood_fill(tela, (410, 335), (128, 128, 128))
+
+    ellipisis(tela, 150, 25, (400, 275), (0, 0, 0))
+    flood_fill(tela, (410, 285), (128, 128, 128))
 
     t1 = font.render("Opção 1", True, (0, 0, 0))
     cx, cy = centro_botao(vertices)
@@ -41,8 +42,9 @@ while rodando:
     tela.blit(t1, (400 - largura // 2, 325 - altura // 2))
 
     vertices = [(250, 430), (550, 430), (550, 470), (250, 470)]
-    pr.ellipisis(tela, 150, 25, (400, 500), (0, 0, 0))
-    pr.flood_fill(tela, (410, 510), (128, 128, 128))
+
+    ellipisis(tela, 150, 25, (400, 450), (0, 0, 0))
+    flood_fill(tela, (410, 460), (128, 128, 128))
 
     t2 = font.render("Sair", True, (0, 0, 0))
     cx, cy = centro_botao(vertices)
@@ -60,6 +62,23 @@ while rodando:
         (700, 100),
         (700, 170),
         (100, 170),
+    ]
+    polygon(tela, vertices, (0, 0, 0))
+    flood_fill(tela, (110, 110), (255, 0, 0))
+
+    vertices = [
+        (330, 325),
+        (370, 325),
+        (400, 355),
+        (430, 325),
+        (470, 325),
+        (410, 365),
+        (470, 405),
+        (430, 405),
+        (400, 375),
+        (370, 405),
+        (330, 405),
+        (390, 365),
     ]
     pr.polygon(tela, vertices, (0, 0, 0))
     pr.flood_fill(tela, (110, 110), (128, 128, 128))
