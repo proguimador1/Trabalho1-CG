@@ -3,21 +3,34 @@ from transforms import create_transform
 from pygame import Surface
 
 class Clock:
-    def __init__(self, screen:Surface, color, fix_point, other_point, radius):
+    def __init__(self, screen:Surface, big_pointer, small_pointer, fix_point, radius):
         self.screen = screen
+        self.big_pointer = big_pointer
+        self.small_pointer = small_pointer
         self.fix_point = fix_point
-        self.other_point = other_point
         self.radius = radius
-        self.color = color
 
     def draw_clock(self):
-        pr.circle(self.screen, self.radius, self.fix_point, self.color)
-        pr.line(self.screen, self.fix_point, self.other_point, self.color)
+        pr.circle(self.screen, self.radius, self.fix_point, (250,250,250))
+        pr.line(self.screen, self.big_pointer[0], self.big_pointer[1], (250,250,250))
+        pr.line(self.screen, self.small_pointer[0], self.small_pointer[1], (250,250,250))
 
-    def run_clock(self):
-
-        theta = 0.1
-
-        self.other_point = create_transform([self.other_point, (0,0)], theta=theta)[0]
-
+    def run_clock(self, angle_big:float, angle_small:float):
+        # Rotaciona apenas a ponta final (self.big_pointer[1]) usando o fix_point como pivô
+        new_big_end = create_transform(
+            [self.big_pointer[1]], 
+            theta=angle_big, 
+            pivot=self.fix_point
+        )[0]
+        
+        new_small_end = create_transform(
+            [self.small_pointer[1]], 
+            theta=angle_small, 
+            pivot=self.fix_point
+        )[0]
+        
+        # Altera a ponta mantendo o ponto fixo
+        self.big_pointer = (self.fix_point, new_big_end)
+        self.small_pointer = (self.fix_point, new_small_end)
+        
         self.draw_clock()

@@ -13,15 +13,15 @@ pygame.init()
 
 screen = pygame.display.set_mode((width, heigth))
 
-#fix_point = (400,400)
-#other_point = (500, 600)
-#radius = 250
-#relogio = Clock(screen, (250,250,250), fix_point, other_point, radius)
+fix_point = (300, 300)
+pointer1 = [fix_point, (300,400)]
+pointer2 = [fix_point, (400,475)]
+radius = 200
 
-#relogio.draw_clock()
+theta1 = 0.5
+theta2 = 0.3
 
-points = losango = [(300, 300), (400, 300), (400, 400), (300, 400)]
-theta = 0.01
+clock = Clock(screen,pointer1, pointer2, fix_point, radius)
 
 while True:
     screen.fill((0,0,0))
@@ -30,19 +30,14 @@ while True:
             pygame.quit()
             sys.exit()
 
-        # Detecta o pressionar da tecla Espaço
-        #if event.type == pygame.KEYDOWN:
-            #if event.key == pygame.K_SPACE:
-        
-    pr.polygon(screen, points, (40, 70, 120))
-    pr.scan_line_polygon(screen, points, (40, 200, 100))
+    #pr.polygon(screen, losango, (40,120,120))
+
+    #losango = create_transform(losango, theta=theta)
+
+    #theta += 1
+
+    clock.run_clock(theta1, theta2)
+
+    pygame.display.flip()
     
-    points = create_transform(losango, theta=theta)
-
-    theta += 0.01
-
-    pygame.display.update()
-
-    print(points)
-
-    #time.sleep(1)
+    time.sleep(1)

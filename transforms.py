@@ -1,7 +1,5 @@
 import math
 
-import primitives as pr
-
 def I_matrix():
     return [
         [1, 0, 0],
@@ -70,7 +68,8 @@ def rotate_matrix(theta:float):
     ]
 
 def create_transform(points:list[tuple[int,int]] | tuple[int,int], 
-                     delta:tuple[int,int] | None = None, theta:float | None = None):
+                     delta:tuple[int,int] | None = None, theta:float | None = None,
+                     pivot:tuple[int,int] | None = None):
     """
     Criar uma transformação para uma primitiva 
     usando matrizes de translação e rotação
@@ -83,6 +82,8 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
     delta: Uma tupla (tx,ty), onde tx e ty correspondem
     às translações nos seus respectivos eixos
     theta: Ângulo de rotação, em graus
+    pivot: Um ponto fixo que serve como centro
+            de rotação 
     """
     
     # retorna none se não recebeu valor
@@ -100,26 +101,27 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
 
     point_matrix = [x_coor, y_coor, bottom]
 
+    if theta:
+        # Matriz que translada o centro do objeto para a origem (0,0)
+        origin = transfer_matrix((-centroid_x, -centroid_y)) if not pivot\
+        else transfer_matrix((-pivot[0],-pivot[1]))
+        
+        # Matriz de rotação
+        rotate_m = rotate_matrix(theta)
+
+        # Matriz que translada de volta ao centro original
+        back = transfer_matrix((centroid_x, centroid_y))if not pivot\
+        else transfer_matrix((pivot[0],pivot[1]))
+
+        # Multiplicação matricial que rotaciona os pontos
+        trans_m = matrix_product(back, matrix_product(rotate_m, origin))
+
     if delta:
         # Matriz de translação
         transfer_m = transfer_matrix(delta)
 
         # Multiplicação matricial que translada os pontos
         trans_m = matrix_product(transfer_m, trans_m)
-
-    if theta:
-        # Matriz que translada o centro do objeto para a origem (0,0)
-        origin = transfer_matrix((-centroid_x, -centroid_y))
-        
-        # Matriz de rotação
-        rotate_m = rotate_matrix(theta)
-
-        # Matriz que translada de volta ao centro original
-        back = transfer_matrix((centroid_x, centroid_y))
-
-        # Multiplicação matricial que rotaciona os pontos
-        trans_m = matrix_product(rotate_m, origin)
-        trans_m = matrix_product(back, trans_m)
 
     #trans_m = [[round(e) for e in linha] for linha in trans_m]
 
