@@ -172,21 +172,48 @@ def desenhar_mapa(screen):
     pr.line(screen, (655,465),(655,480), (0,0,0))
 
     # Lâmpada 1
-    base_lamp1 = [(325,125),(341,125),(341,165),(325,165)]
+    base_lamp1 = [(125,125),(141,125),(141,165),(125,165)]
     pr.scan_line_polygon(screen, base_lamp1, (128, 128, 128))
-    pr.scan_line_ellipsis(screen, 8,8, (333,165),(255, 223, 120))
-    tr_base1 = [(315,165),(333,152),(352,165)]
+    pr.scan_line_ellipsis(screen, 8,8, (133,165),(255, 223, 120))
+    tr_base1 = [(115,165),(133,152),(152,165)]
     pr.scan_line_polygon(screen, tr_base1, (128, 128, 128))
-    
+
 
     # Lâmpada 2
-    base_lamp2 = [(658,125),(674,125),(674,165),(658,165)]
+    base_lamp2 = [(325,125),(341,125),(341,165),(325,165)]
     pr.scan_line_polygon(screen, base_lamp2, (128, 128, 128))
+    pr.scan_line_ellipsis(screen, 8,8, (333,165),(255, 223, 120))
+    tr_base2 = [(315,165),(333,152),(352,165)]
+    pr.scan_line_polygon(screen, tr_base2, (128, 128, 128))
+    
+    # Lâmpada 3
+    base_lamp3 = [(491,125),(507,125),(507,165),(491,165)]
+    pr.scan_line_polygon(screen, base_lamp3, (128, 128, 128))
+    pr.scan_line_ellipsis(screen, 8,8, (499,165),(255, 223, 120))
+    tr_base3 = [(481,165),(499,152),(517,165)]
+    pr.scan_line_polygon(screen, tr_base3, (128, 128, 128))
+
+    # Lâmpada 4
+    base_lamp4 = [(658,125),(674,125),(674,165),(658,165)]
+    pr.scan_line_polygon(screen, base_lamp4, (128, 128, 128))
     pr.scan_line_ellipsis(screen, 8,8, (666,165),(255, 223, 120))
-    tr_base2 = [(648,165),(666,152),(685,165)]
-    pr.scan_line_polygon(screen, tr_base2, (128, 128, 128))    
+    tr_base4 = [(648,165),(666,152),(685,165)]
+    pr.scan_line_polygon(screen, tr_base4, (128, 128, 128))    
 
+    # Lâmpada 5
+    base_lamp5 = [(858,125),(874,125),(874,165),(858,165)]
+    pr.scan_line_polygon(screen, base_lamp5, (128, 128, 128))
+    pr.scan_line_ellipsis(screen, 8,8, (866,165),(255, 223, 120))
+    tr_base5 = [(848,165),(866,152),(885,165)]
+    pr.scan_line_polygon(screen, tr_base5, (128, 128, 128)) 
 
+    # Efeito da Luz (Aplicação do Gradiente)
+    """pr.scanline_fill_gradiente(screen, [(0,125),(999,125),(999,240),(0,240)],[
+        (245,235,150), 
+        (245,235,150),
+        (210,160,55),  
+        (210,160,55)
+    ])"""
 
 
     #COLORAÇÃO
