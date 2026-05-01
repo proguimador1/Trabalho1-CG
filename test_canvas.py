@@ -18,7 +18,7 @@ pygame.init()
 
 screen = pygame.display.set_mode((width, heigth))
 
-losango = [(300, 300), (300, 600), (600,600), (300, 600)]
+losango = [(300, 300), (300, 500), (100, 500), (100, 300)]
 
 uvs = [
     (0.5, 0.0),
@@ -54,9 +54,10 @@ while True:
 
     #clock.run_clock(0.0, theta2)
 
-    #pr.polygon(screen, losango, (30, 80, 40))
 
     pr.scanline_texture(screen, losango, uvs, textura)
+
+    pr.polygon(screen, losango, (30, 80, 40))
 
     pygame.display.flip()
     
