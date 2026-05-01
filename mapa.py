@@ -9,12 +9,32 @@ def desenhar_mapa(screen):
     balcao1 = [(0,530),(250,530),(250,700),(0,700)]
     pr.scan_line_polygon(screen, balcao1, (90, 50, 15))
     pr.polygon(screen, balcao1, (0,0,0))
-
+    """textura1 = pygame.image.load("text_mad_escura.jpg")
+    pr.scanline_texture(screen,[(0,530),(250,530),(250,700),(0,700)],[(0,0), (1,0), (1,1), (0,1)], textura1)
+    """
+    # TEXTURA COXINHA
+    
+    
+    
     #Balcão 2
     balcao2 = [(400,530),(1000,530),(1000,700),(400,700)] 
     pr.scan_line_polygon(screen, balcao2, (192, 192, 192))
     pr.polygon(screen, balcao2, (0,0,0))
 
+    # Coxinha
+    text_cox = pygame.image.load("coxinha.jpeg").convert_alpha()
+
+    largura = text_cox.get_width()
+    altura = text_cox.get_height()
+
+    for x in range(largura):
+        for y in range(altura):
+            r, g, b, a = text_cox.get_at((x, y))
+            if r > 170 and g > 170 and b > 170:
+                text_cox.set_at((x, y), (192, 192, 192, 255))
+    pr.scanline_texture(screen,[(655,549),(690,549),(690,579),(655,579)],[(0,0), (1,0), (1,1), (0,1)],text_cox)
+    
+    
     #Primeira sequência
     pr.line(screen, (430,580), (570,580), (255,255,255))
     pr.line(screen, (600,580), (740,580), (255,255,255))
@@ -29,7 +49,7 @@ def desenhar_mapa(screen):
     pr.line(screen, (430,660), (570,660), (255,255,255))
     pr.line(screen, (600,660), (740,660), (255,255,255))
     pr.line(screen, (770,660), (910, 660), (255,255,255))
-   
+    
     #Caixa
     caixa = [(45,430),(160,430),(160,530),(45,530)]
     pr.scan_line_polygon(screen, caixa, (200, 220, 230))
@@ -75,12 +95,12 @@ def desenhar_mapa(screen):
     porta = [(325,315),(470,315),(470,530),(400,530), (400,700), (325, 700), (325,530)]
     pr.polygon(screen, porta, (0,0,0))
     pr.scan_line_polygon(screen, porta, (0,0,0))
-
+    '''
     #Vitrine
     vitrine = [(0,430),(45,430),(45,530),(0,530)]
     pr.scan_line_polygon(screen, vitrine, (245, 245, 220))
     pr.polygon(screen, vitrine, (0,0,0))
-
+    '''
     #Geladeira
     geladeira = [(800,345),(950,345),(950,530),(800,530)]
     pr.scan_line_polygon(screen, geladeira, (240, 80, 80))
@@ -131,19 +151,19 @@ def desenhar_mapa(screen):
     pr.scan_line_polygon(screen, teto, (120, 70, 20))
 
     fonte2 = pygame.font.SysFont("Arial", 80)
-    texto_teto = fonte2.render("C   A   N   T   I   N   A", True, (0,0,0))
-    screen.blit(texto_teto, (160, 30))
+    texto_teto = fonte2.render("C   A   N   T   I   N   A", True, (255, 200, 100))
+    screen.blit(texto_teto, (180, 20))
 
     #Linha da geladeira
     linha_geladeira =[(800,435), (950,435),(950,440),(800,440)]
     pr.polygon(screen, linha_geladeira, (0,0,0))
     pr.scan_line_polygon(screen, linha_geladeira, (0,0,0))    
-    
+    '''
     #Linhas da vitrine
     pr.line(screen, (0,455), (45,455), (0,0,0))
     pr.line(screen, (0, 480),(45,480), (0,0,0))
     pr.line(screen, (0,505), (45,505), (0,0,0))
-    
+    '''
     #Boca do caixa
     pr.scan_line_ellipsis(screen, 17,17, (102,510), (200, 140, 30))
     pr.circle(screen, 17, (102,510), (0, 0, 0))
@@ -161,10 +181,11 @@ def desenhar_mapa(screen):
     pr.line(screen, (240, 360), (252,360), (0,0,0))
 
     #Salgado
+    """
     pr.scan_line_ellipsis(screen, 7,12, (670,566), (230,140,40)) # 8, 12, (670,566)
     pr.scan_line_ellipsis(screen,10,10,(670,570), (230, 140, 40)) # 10,10,(670,570)
     pr.scan_line_ellipsis(screen, 2,2, (670,555), (230,140,40)) # 2,2,(670,554)
-
+    """
 
     # Papel do salgado
     #papel = [(662,570),(679,570),(676,581),(665,581)]
