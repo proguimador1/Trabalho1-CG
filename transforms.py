@@ -23,7 +23,6 @@ def matrix_product(matrix1, matrix2):
 
     return elements
 
-
 def transfer_matrix(delta:tuple[int,int]):
     """
     Retorna uma matriz de translação para mover 
@@ -66,6 +65,24 @@ def rotate_matrix(theta:float):
         [sen_r, cos_r, 0],
         [0, 0, 1],
     ]
+
+def scale(sx, sy):
+    """
+    Retorna uma matriz de 
+    reescalonamento
+
+    <h2>Parâmetros:</h2>
+    sx: valor da mudança de escala em x
+    sy: valor da mudança de escala em y
+    """
+
+    # retorna a matriz de 
+    # reescalonamento
+    return [
+    [sx, 0, 0],
+    [0, sy, 0],
+    [0, 0, 1]
+    ]   
 
 def create_transform(points:list[tuple[int,int]] | tuple[int,int], 
                      delta:tuple[int,int] | None = None, theta:float | None = None,
