@@ -1,5 +1,6 @@
 import primitives as pr
 from transforms import create_transform
+import pygame
 from pygame import Surface
 
 class Clock:
@@ -33,3 +34,15 @@ class Clock:
         self.small_pointer = (self.fix_point, new_small_end)
         
         self.draw_clock()
+
+class Player:
+    def __init__(self,screen:Surface, polygon:list[tuple[int,int]], sprites:pygame.image, uvs):
+        self.screen = screen
+        self.polygon = polygon
+        self.sprites = sprites
+        self.uvs = uvs
+        self.life_points = 500
+
+    def draw_player(self):
+        pr.polygon(self.screen, self.polygon, (250,0,0,0))
+        pr.scanline_texture(self.screen, self.polygon, self.uvs, self.sprites[0])
