@@ -3,33 +3,10 @@ from primitives import *
 import pygame
 from classes import *
 
-losango = [(300, 300), (300, 500), (100, 500), (100, 300)]
-losango2 = [(600, 600), (600, 700), (500, 700), (500, 600)]
 
-uvs = [
-    (0.5, 0.0),
-    (1.0, 0.5),
-    (0.5, 1.0),
-    (0.0, 0.5)
-]
-
-uvs2 = [
-    (1.0, 0.0), 
-    (1.0, 1.0), 
-    (0.0, 1.0), 
-    (0.0, 0.0)
-]
-
-
-def desenhar_mapa(screen):
+def desenhar_mapa(screen, player1, player2):
     # def polygon(screen:Surface, points:list[tuple[int, int]], color, fill=True):
     pygame.init()
-
-    textura = pygame.image.load('coxinha.jpeg').convert_alpha()
-    textura2 = pygame.image.load('coxinha.jpeg').convert_alpha()
-
-    player1 = Player(screen, losango, [textura], uvs)
-    player2 = Player(screen, losango2, [textura2], uvs2)
 
     #Balcão 1
     balcao1 = [(0,530),(250,530),(250,700),(0,700)]
