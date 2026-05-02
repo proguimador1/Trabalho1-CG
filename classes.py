@@ -44,5 +44,12 @@ class Player:
         self.life_points = 500
 
     def draw_player(self):
-        pr.polygon(self.screen, self.polygon, (250,0,0,0))
         pr.scanline_texture(self.screen, self.polygon, self.uvs, self.sprites[0])
+
+    
+    # Falta ainda estipular um valor bom de pixels para mover
+    def go_rigth(self):
+        self.polygon = create_transform(self.polygon, delta=(3, 0))
+
+    def go_left(self):
+        self.polygon = create_transform(self.polygon, delta=(-3, 0))

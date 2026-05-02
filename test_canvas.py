@@ -52,11 +52,21 @@ player1 = Player(screen, losango, [textura], uvs)
 player2 = Player(screen, losango2, [textura2], uvs2)
 
 while True:
-    #screen.fill((0,0,0))
+    screen.fill((0,0,0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_a:
+                player1.go_left()
+            if event.key == pygame.K_d:
+                player1.go_rigth()
+            if event.key == pygame.K_LEFT:
+                player2.go_left()
+            if event.key == pygame.K_RIGHT:
+                player2.go_rigth()
 
 
     #losango = create_transform(losango, theta=theta)
@@ -68,8 +78,8 @@ while True:
     player1.draw_player()
     player2.draw_player()
 
-    pr.polygon(screen, losango, (250,0,0,250))
+    #pr.polygon(screen, losango, (250,0,0,250))
     
     pygame.display.flip()
     
-    time.sleep(1)
+    #time.sleep(1)
