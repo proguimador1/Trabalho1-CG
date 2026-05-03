@@ -46,9 +46,14 @@ class Player:
     def draw_player(self):
         pr.scanline_texture(self.screen, self.polygon, self.uvs, self.sprites[0])
 
+    def get_polygon(self):
+        return self.polygon
+    
+    def get_current_sprite(self):
+        return self.sprites[0]
     
     # Falta ainda estipular um valor bom de pixels para mover
-    def go_rigth(self):
+    def go_right(self):
         self.polygon = create_transform(self.polygon, delta=(3, 0))
 
     def go_left(self):

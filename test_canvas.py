@@ -62,11 +62,11 @@ while True:
             if event.key == pygame.K_a:
                 player1.go_left()
             if event.key == pygame.K_d:
-                player1.go_rigth()
+                player1.go_right()
             if event.key == pygame.K_LEFT:
                 player2.go_left()
             if event.key == pygame.K_RIGHT:
-                player2.go_rigth()
+                player2.go_right()
 
 
     #losango = create_transform(losango, theta=theta)

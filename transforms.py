@@ -66,7 +66,7 @@ def rotate_matrix(theta:float):
         [0, 0, 1],
     ]
 
-def scale(sx, sy):
+def scale_matrix(sx, sy):
     """
     Retorna uma matriz de 
     reescalonamento
@@ -86,13 +86,13 @@ def scale(sx, sy):
 
 def create_transform(points:list[tuple[int,int]] | tuple[int,int], 
                      delta:tuple[int,int] | None = None, theta:float | None = None,
-                     pivot:tuple[int,int] | None = None):
+                     pivot:tuple[int,int] | None = None, scale:tuple[int,int] | None = None):
     """
-    Criar uma transformação para uma primitiva 
-    usando matrizes de translação e rotação
+    Cria e aplica uma transformação para uma primitiva 
+    usando matrizes de translação, rotação e escala
     baseadas, respectivamente, nos valores de
-    delta e theta. Se nenhum valor de tranformação
-    for passado, retorn None.
+    delta, theta e scale. Se nenhum valor de 
+    tranformação for passado, retorn None.
 
     <h2>Parâmetros:</h2>
     points: Os vértices da primitiva
@@ -101,10 +101,12 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
     theta: Ângulo de rotação, em graus
     pivot: Um ponto fixo que serve como centro
             de rotação 
+    scale: Uma tupla (sx,sy), que contém os fatores de
+            escala em x e em y, respectivamente
     """
     
     # retorna none se não recebeu valor
-    if delta == None and theta == None: return
+    if delta == None and theta == None and scale == None: return
 
     # Define a transformação incial como 
     # uma matriz identidade 3x3
@@ -139,6 +141,11 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
 
         # Multiplicação matricial que translada os pontos
         trans_m = matrix_product(transfer_m, trans_m)
+
+    if scale:
+        sx, sy = scale
+        scale_m = scale_matrix(sx, sy)
+        trans_m = matrix_product(scale_m, trans_m)
 
     #trans_m = [[round(e) for e in linha] for linha in trans_m]
 

@@ -2,9 +2,29 @@ import primitives as pr
 from primitives import *
 import pygame
 from classes import *
+from transforms import *
 
+def janela_viewport(janela, viewport, primitive):
+    Wxmin, Wymin, Wxmax, Wymax = janela
+    Vxmin, Vymin, Vxmax, Vymax = viewport
 
-def desenhar_mapa(screen, player1, player2):
+    sx = (Vxmax - Vxmin) / (Wxmax - Wxmin)
+    sy = (Vymin - Vymax) / (Wymax - Wymin)  # <-- INVERTE O Y
+
+    primitive = create_transform(primitive, delta=(-Wxmin, -Wymin), scale=(sx, sy))
+
+    primitive = create_transform(primitive, delta=(Vxmin, Vymax))
+
+    return primitive
+
+def zoom_tv(screen, balcao, texture):
+    janela_mundo = (0, 0, 1000, 700)
+    viewport_tv = (500, 290, 700, 390)
+
+    balcao_zoom = janela_viewport(janela_mundo, viewport_tv, balcao)
+    pr.scan_line_polygon(screen, balcao_zoom, (192, 192, 192))
+
+def desenhar_mapa(screen, player1:Player, player2:Player):
     # def polygon(screen:Surface, points:list[tuple[int, int]], color, fill=True):
     pygame.init()
 
@@ -75,6 +95,8 @@ def desenhar_mapa(screen, player1, player2):
     tv =  [(500,290),(700,290),(700, 390),(500, 390)]
     pr.scan_line_polygon(screen, tv, (0,0,0))
     pr.polygon(screen, tv, (0,0,0))
+    
+    # Minimapa
     
     # Suporte da TV
     suporte_tv = [(597,390),(605,390),(605,400),(665,400),(665,407),(535,407),(535,400),(597,400),(597,390)]
