@@ -45,8 +45,8 @@ player2 = Player(screen, losango2, [textura2], uvs2)
 while True:
     for event in pygame.event.get():
         # TEMPORÁRIA##############
-        x, y = get_mouse_pos()
-        print(x, y)
+        #x, y = get_mouse_pos()
+        #print(x, y)
         ##########################
 
         if event.type == pygame.QUIT:
