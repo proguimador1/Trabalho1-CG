@@ -128,12 +128,30 @@ def janela_viewport(janela, viewport, primitive):
 
     return primitive
 
-def zoom_tv(screen, balcao, texture):
+def minimap(screen, player1:Player, player2:Player):
     janela_mundo = (0, 0, 1000, 700)
     viewport_tv = (500, 290, 700, 390)
 
-    balcao_zoom = janela_viewport(janela_mundo, viewport_tv, balcao)
-    pr.scan_line_polygon(screen, balcao_zoom, (192, 192, 192))
+    tv = objetos_cenario[3]
+
+    polygon(screen, tv['pontos'], (0,0,0))
+    scan_line_polygon(screen, tv['pontos'], (255, 165, 0))
+
+    for obj in objetos_cenario:
+        zoom_points = janela_viewport(janela_mundo, viewport_tv, obj['pontos'])
+        scan_line_polygon(screen, zoom_points, obj['cor_scanline'])
+
+        if obj['cor_contorno']:
+            polygon(screen, zoom_points, obj['cor_contorno'])
+
+    """minipol1 = janela_viewport(janela_mundo, viewport_tv, player1.get_polygon())
+    minipol2 = janela_viewport(janela_mundo, viewport_tv, player2.get_polygon())
+
+    miniplayer1 = Player(screen, minipol1, pygame.image.load('coxinha.jpeg'))
+    miniplayer2 = Player(screen, minipol2, pygame.image.load('coxinha.jpeg'))
+
+    miniplayer1.draw_player()
+    miniplayer2.draw_player()"""
 
 def desenhar_mapa(screen, player1:Player, player2:Player):
     # def polygon(screen:Surface, points:list[tuple[int, int]], color, fill=True):
@@ -294,6 +312,9 @@ def desenhar_mapa(screen, player1:Player, player2:Player):
     pr.scan_line_ellipsis(screen, 8,8, (866,145),(255, 223, 120))
     tr_base5 = [(848,145),(866,133),(885,145)]
     pr.scan_line_polygon(screen, tr_base5, (128, 128, 128))
+
+    #Mini mapa
+    minimap(screen, player1, player2)
 
     player1.draw_player()    
     player2.draw_player()    
