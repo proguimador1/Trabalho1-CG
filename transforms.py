@@ -124,7 +124,7 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
         sx, sy = scale
         scale_m = scale_matrix(sx, sy)
         trans_m = matrix_product(scale_m, trans_m)
-        
+
     if theta:
         # Matriz que translada o centro do objeto para a origem (0,0)
         origin = transfer_matrix((-centroid_x, -centroid_y)) if not pivot\
@@ -156,3 +156,35 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
     new_points = list(zip(new_point_matrix[0], new_point_matrix[1]))
     
     return new_points
+
+def calculate_uvs(points:list[tuple[int,int]]):
+    """
+    Recebe os pontos de um polígono e calcula as
+    coordenadas UV (entre 0 e 1).
+    <h2>Parâmetros:</h2>
+    points: Lista de pontos que correspondem aos
+            vértices do polígono
+    """
+
+    # 1. Encontrar os valores mínimos e máximos (Bounding Box)
+    x_coords = [p[0] for p in points]
+    y_coords = [p[1] for p in points]
+    
+    min_x, max_x = min(x_coords), max(x_coords)
+    min_y, max_y = min(y_coords), max(y_coords)
+    
+    # 2. Calcular a largura e altura da bounding box
+    width = max_x - min_x
+    height = max_y - min_y
+    
+    uvs = []
+    
+    # 3. Mapear cada ponto para o intervalo [0, 1]
+    for x, y in points:
+        # u = (x - min_x) / largura_total
+        u = (x - min_x) / width
+        # v = (y - min_y) / altura_total
+        v = (y - min_y) / height
+        uvs.append((u, v))
+        
+    return uvs

@@ -147,14 +147,17 @@ def minimap(screen, player1:Player, player2:Player):
         if obj['cor_contorno']:
             polygon(screen, zoom_points, obj['cor_contorno'])
 
-    """minipol1 = janela_viewport(janela_mundo, viewport_tv, player1.get_polygon())
+    minipol1 = janela_viewport(janela_mundo, viewport_tv, player1.get_polygon())
     minipol2 = janela_viewport(janela_mundo, viewport_tv, player2.get_polygon())
 
-    miniplayer1 = Player(screen, minipol1, pygame.image.load('coxinha.jpeg'))
-    miniplayer2 = Player(screen, minipol2, pygame.image.load('coxinha.jpeg'))
+    uv1 = calculate_uvs(minipol1)
+    uv2 = calculate_uvs(minipol2)
+
+    miniplayer1 = Player(screen, minipol1, [pygame.image.load('coxinha.jpeg')], uv1)
+    miniplayer2 = Player(screen, minipol2, [pygame.image.load('coxinha.jpeg')], uv2)
 
     miniplayer1.draw_player()
-    miniplayer2.draw_player()"""
+    miniplayer2.draw_player()
 
 def desenhar_mapa(screen, player1:Player, player2:Player):
     # def polygon(screen:Surface, points:list[tuple[int, int]], color, fill=True):
