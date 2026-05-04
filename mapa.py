@@ -115,6 +115,36 @@ objetos_cenario = [
     }
 ]
 
+miniuv1 = [(1.0, 0.0), (1.0, 1.0), (0.0, 1.0), (0.0, 0.0)]
+miniuv2 = [(1.0, 0.0), (1.0, 1.0), (0.0, 1.0), (0.0, 0.0)]
+
+# Controladore de tempo
+counter_time = 0
+
+def clock_animation(clock: Clock):
+    # 1. Obtém o tempo total em segundos (float para precisão)
+    total_seconds = pygame.time.get_ticks() / 1000.0
+    
+    # 2. Calcula os ângulos absolutos (0 a 360)
+    # Ponteiro menor (segundos): dá uma volta (360°) a cada 60 segundos
+    # Usamos o operador % 360 para manter o valor limpo, embora math.cos/sin aceitem valores altos
+    angle_small = (total_seconds * 0.6) % 360
+    
+    # Ponteiro maior (minutos): dá uma volta (360°) a cada 3600 segundos (60 min)
+    # Dividimos o total_seconds por 60 e multiplicamos por 6 (ou simplesmente total / 10)
+    angle_big = (total_seconds * 0.1) % 360
+
+    # 3. Atualiza os ponteiros
+    # Importante: Como run_clock usa o ponteiro original para criar o novo, 
+    # se você chamar run_clock sucessivamente, ele vai girar cada vez mais rápido.
+    # O IDEAL é que o Clock guarde os pontos ORIGINAIS (estáticos) e run_clock
+    # aplique a rotação sempre sobre o estado inicial.
+    
+    clock.run_clock(angle_big, angle_small)
+
+    # 4. Desenha
+    clock.draw_clock()
+
 def janela_viewport(janela, viewport, primitive):
     Wxmin, Wymin, Wxmax, Wymax = janela
     Vxmin, Vymin, Vxmax, Vymax = viewport
@@ -150,11 +180,8 @@ def minimap(screen, player1:Player, player2:Player):
     minipol1 = janela_viewport(janela_mundo, viewport_tv, player1.get_polygon())
     minipol2 = janela_viewport(janela_mundo, viewport_tv, player2.get_polygon())
 
-    uv1 = calculate_uvs(minipol1)
-    uv2 = calculate_uvs(minipol2)
-
-    miniplayer1 = Player(screen, minipol1, [pygame.image.load('coxinha.jpeg')], uv1)
-    miniplayer2 = Player(screen, minipol2, [pygame.image.load('coxinha.jpeg')], uv2)
+    miniplayer1 = Player(screen, minipol1, [pygame.image.load('coxinha.jpeg')], miniuv1)
+    miniplayer2 = Player(screen, minipol2, [pygame.image.load('coxinha.jpeg')], miniuv2)
 
     miniplayer1.draw_player()
     miniplayer2.draw_player()
@@ -245,16 +272,18 @@ def desenhar_mapa(screen, player1:Player, player2:Player):
     pr.circle(screen, 17, (102,510), (0, 0, 0))
 
     # Relógio de parede
-    pr.circle(screen, 30, (240,360), (0,0,0))
+    clock = Clock(screen, [(240,360), (240, 340)], [(240, 360), (252,360)], (240, 360))
+    clock_animation(clock)
+    """pr.circle(screen, 30, (240,360), (0,0,0))
     pr.circle(screen, 25, (240,360), (255,255,255))
     pr.scan_line_ellipsis(screen, 30,30, (240,360), (0,0,0))
-    pr.scan_line_ellipsis(screen, 25,25, (240,360), (255,255,255))
+    pr.scan_line_ellipsis(screen, 25,25, (240,360), (255,255,255))"""
 
     # Ponteiro maior
-    pr.line(screen, (240,360), (240, 340), (0,0,0))
+    #pr.line(screen, (240,360), (240, 340), (0,0,0))
 
     # Ponteiro menor
-    pr.line(screen, (240, 360), (252,360), (0,0,0))
+    #pr.line(screen, (240, 360), (252,360), (0,0,0))
 
     #Salgado
     """

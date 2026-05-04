@@ -4,17 +4,19 @@ import pygame
 from pygame import Surface
 
 class Clock:
-    def __init__(self, screen:Surface, big_pointer, small_pointer, fix_point, radius):
+    def __init__(self, screen:Surface, big_pointer, small_pointer, fix_point):
         self.screen = screen
         self.big_pointer = big_pointer
         self.small_pointer = small_pointer
         self.fix_point = fix_point
-        self.radius = radius
 
     def draw_clock(self):
-        pr.circle(self.screen, self.radius, self.fix_point, (250,250,250))
-        pr.line(self.screen, self.big_pointer[0], self.big_pointer[1], (250,250,250))
-        pr.line(self.screen, self.small_pointer[0], self.small_pointer[1], (250,250,250))
+        pr.circle(self.screen, 30, self.fix_point, (0,0,0))
+        pr.circle(self.screen, 25, self.fix_point, (255,255,255))
+        pr.scan_line_ellipsis(self.screen, 30,30, self.fix_point, (0,0,0))
+        pr.scan_line_ellipsis(self.screen, 25,25, self.fix_point, (255,255,255))
+        pr.line(self.screen, self.big_pointer[0], self.big_pointer[1], (0,0,0))
+        pr.line(self.screen, self.small_pointer[0], self.small_pointer[1], (0,0,0))
 
     def run_clock(self, angle_big:float, angle_small:float):
         new_big_end = create_transform(
@@ -32,8 +34,6 @@ class Clock:
         # Altera a ponta mantendo o ponto fixo
         self.big_pointer = (self.fix_point, new_big_end)
         self.small_pointer = (self.fix_point, new_small_end)
-        
-        self.draw_clock()
 
 class Player:
     def __init__(self,screen:Surface, polygon:list[tuple[int,int]], sprites:pygame.image, uvs):
@@ -58,3 +58,10 @@ class Player:
 
     def go_left(self):
         self.polygon = create_transform(self.polygon, delta=(-3, 0))
+
+    # temporariamente assim
+    def punch(self):
+        self.polygon = create_transform(self.polygon, theta=30)
+
+        self.draw_player()
+

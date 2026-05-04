@@ -67,10 +67,15 @@ while True:
                 player1.go_left()
             if event.key == pygame.K_d:
                 player1.go_right()
+            if event.key == pygame.K_r:
+                player1.punch()
             if event.key == pygame.K_LEFT:
                 player2.go_left()
             if event.key == pygame.K_RIGHT:
                 player2.go_right()
+            if event.key == pygame.K_m:
+                player2.punch()
+            
 
     screen.fill((200, 140, 30))
 

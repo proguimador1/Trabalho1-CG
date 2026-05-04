@@ -4,7 +4,8 @@ from classes import Clock, Player
 import time
 
 import primitives as pr
-from transforms import create_transform
+from transforms import *
+from mapa import janela_viewport
 
 # --- Exemplo de como chamar no seu módulo principal ---
 # pontos_poligono = [(200, 100), (400, 100), (300, 300)]
@@ -48,8 +49,20 @@ theta2 = 0.3
 
 clock = Clock(screen,pointer2, pointer1, fix_point, radius)"""
 
+janela_mundo = (0, 0, 1000, 700)
+viewport_tv = (500, 290, 700, 390)
+
 player1 = Player(screen, losango, [textura], uvs)
 player2 = Player(screen, losango2, [textura2], uvs2)
+
+minipol1 = janela_viewport(janela_mundo, viewport_tv, player1.get_polygon())
+minipol2 = janela_viewport(janela_mundo, viewport_tv, player2.get_polygon())
+
+uv1 = calculate_uvs(minipol1)
+uv2 = calculate_uvs(minipol2)
+
+print(uv1)
+print(uv2)
 
 while True:
     screen.fill((0,0,0))
