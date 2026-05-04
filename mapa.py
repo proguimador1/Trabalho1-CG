@@ -119,12 +119,15 @@ def janela_viewport(janela, viewport, primitive):
     Wxmin, Wymin, Wxmax, Wymax = janela
     Vxmin, Vymin, Vxmax, Vymax = viewport
 
+    # 1. Escala sempre POSITIVA (mantém a orientação da tela do Pygame)
     sx = (Vxmax - Vxmin) / (Wxmax - Wxmin)
-    sy = (Vymin - Vymax) / (Wymax - Wymin)  # <-- INVERTE O Y
+    sy = (Vymax - Vymin) / (Wymax - Wymin) 
 
-    primitive = create_transform(primitive, delta=(-Wxmin, -Wymin), scale=(sx, sy))
-
-    primitive = create_transform(primitive, delta=(Vxmin, Vymax))
+    # 2. Leva para a origem, escala, e move para a posição da TV
+    # Usamos o delta para "ancorar" o desenho no canto (Vxmin, Vymin) da TV
+    primitive = create_transform(primitive, 
+                                 delta=(Vxmin - Wxmin * sx, Vymin - Wymin * sy), 
+                                 scale=(sx, sy))
 
     return primitive
 

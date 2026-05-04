@@ -120,6 +120,11 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
 
     point_matrix = [x_coor, y_coor, bottom]
 
+    if scale:
+        sx, sy = scale
+        scale_m = scale_matrix(sx, sy)
+        trans_m = matrix_product(scale_m, trans_m)
+        
     if theta:
         # Matriz que translada o centro do objeto para a origem (0,0)
         origin = transfer_matrix((-centroid_x, -centroid_y)) if not pivot\
@@ -142,10 +147,6 @@ def create_transform(points:list[tuple[int,int]] | tuple[int,int],
         # Multiplicação matricial que translada os pontos
         trans_m = matrix_product(transfer_m, trans_m)
 
-    if scale:
-        sx, sy = scale
-        scale_m = scale_matrix(sx, sy)
-        trans_m = matrix_product(scale_m, trans_m)
 
     #trans_m = [[round(e) for e in linha] for linha in trans_m]
 
