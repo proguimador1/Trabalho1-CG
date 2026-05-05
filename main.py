@@ -1,7 +1,6 @@
 import pygame
 import sys
 import mapa as mp
-import primitives as pr
 width = 1000
 height = 700
 fullscreen = False
@@ -42,7 +41,7 @@ player1 = Player(screen, losango, [textura], uvs)
 player2 = Player(screen, losango2, [textura2], uvs2)
 
 
-while True:
+while player1.dead_or_alive() and player2.dead_or_alive():
     for event in pygame.event.get():
         # TEMPORÁRIA##############
         #x, y = get_mouse_pos()
@@ -69,12 +68,14 @@ while True:
                 player1.go_right()
             if event.key == pygame.K_r:
                 player1.punch()
+                player2.lose_life()
             if event.key == pygame.K_LEFT:
                 player2.go_left()
             if event.key == pygame.K_RIGHT:
                 player2.go_right()
             if event.key == pygame.K_m:
                 player2.punch()
+                player1.lose_life()
             
 
     screen.fill((200, 140, 30))
@@ -84,3 +85,11 @@ while True:
 
 
     pygame.display.flip()
+
+winner = player1 if player1.dead_or_alive() else player2
+
+#tela de vitória vem aqui
+print(f'Player {winner} venceu!')
+
+pygame.quit()
+sys.exit()

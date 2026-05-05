@@ -55,10 +55,10 @@ class Player:
     
     # Falta ainda estipular um valor bom de pixels para mover
     def go_right(self):
-        self.polygon = create_transform(self.polygon, delta=(3, 0))
+        self.polygon = create_transform(self.polygon, delta=(6, 0))
 
     def go_left(self):
-        self.polygon = create_transform(self.polygon, delta=(-3, 0))
+        self.polygon = create_transform(self.polygon, delta=(-6, 0))
 
     # temporariamente assim
     def punch(self):
@@ -71,5 +71,5 @@ class Player:
 
         self.is_alive = self.life_points > 0
 
-    def alive_or_dead(self):
+    def dead_or_alive(self):
         return self.is_alive
