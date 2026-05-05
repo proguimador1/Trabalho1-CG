@@ -37,8 +37,8 @@ uvs2 = [
 textura = pygame.image.load('coxinha.jpeg').convert_alpha()
 textura2 = pygame.image.load('coxinha.jpeg').convert_alpha()
 
-player1 = Player(screen, losango, [textura], uvs)
-player2 = Player(screen, losango2, [textura2], uvs2)
+player1 = Player(1,screen, losango, [textura], uvs)
+player2 = Player(2,screen, losango2, [textura2], uvs2)
 
 
 while player1.dead_or_alive() and player2.dead_or_alive():
@@ -88,7 +88,7 @@ while player1.dead_or_alive() and player2.dead_or_alive():
 winner = player1 if player1.dead_or_alive() else player2
 
 #tela de vitória vem aqui
-print(f'Player {winner} venceu!')
+print(f'Player {winner.get_id()} venceu!')
 
 pygame.quit()
 sys.exit()

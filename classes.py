@@ -35,13 +35,17 @@ class Clock:
         self.small_pointer = (self.fix_point, new_small_end)
 
 class Player:
-    def __init__(self,screen:Surface, polygon:list[tuple[int,int]], sprites:list[Surface], uvs):
+    def __init__(self,ID,screen:Surface, polygon:list[tuple[int,int]], sprites:list[Surface], uvs):
+        self.ID = ID
         self.screen = screen
         self.polygon = polygon
         self.sprites = sprites
         self.uvs = uvs
         self.life_points = 300
         self.is_alive = True
+
+    def get_id(self):
+        return self.ID
 
     def get_hitbox(self):
         x_coords = [p[0] for p in self.polygon]
@@ -100,12 +104,23 @@ class Player:
 
     # temporariamente assim
     def punch(self, other_player):
-        # Rotaciona para o soco
-        self.polygon = create_transform(self.polygon, theta=30)
+        original_polygon = self.polygon
+
+        theta = 10 if self.ID == 1 else -10
+
+        self.polygon = create_transform(self.polygon, theta=theta)
         
         # Se após o soco a hitbox encostar no outro, ele perde vida
         if self.check_collision(self.polygon, other_player):
             other_player.lose_life()
+        
+        # 5. Desenha o soco esticado
+        self.draw_player()
+        
+        # 6. RETORNA à escala original
+        # Em um jogo com frames, isso seria feito no próximo frame, 
+        # mas aqui restauramos o atributo para o próximo ciclo de desenho.
+        self.polygon = original_polygon
 
     def lose_life(self):
         self.life_points -= 30
