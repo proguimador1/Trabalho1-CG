@@ -274,16 +274,6 @@ def desenhar_mapa(screen, player1:Player, player2:Player):
     # Relógio de parede
     clock = Clock(screen, [(240,360), (240, 340)], [(240, 360), (252,360)], (240, 360))
     clock_animation(clock)
-    """pr.circle(screen, 30, (240,360), (0,0,0))
-    pr.circle(screen, 25, (240,360), (255,255,255))
-    pr.scan_line_ellipsis(screen, 30,30, (240,360), (0,0,0))
-    pr.scan_line_ellipsis(screen, 25,25, (240,360), (255,255,255))"""
-
-    # Ponteiro maior
-    #pr.line(screen, (240,360), (240, 340), (0,0,0))
-
-    # Ponteiro menor
-    #pr.line(screen, (240, 360), (252,360), (0,0,0))
 
     #Salgado
     """
