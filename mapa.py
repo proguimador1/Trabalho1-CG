@@ -118,8 +118,19 @@ objetos_cenario = [
 miniuv1 = [(1.0, 0.0), (1.0, 1.0), (0.0, 1.0), (0.0, 0.0)]
 miniuv2 = [(1.0, 0.0), (1.0, 1.0), (0.0, 1.0), (0.0, 0.0)]
 
-# Controladore de tempo
-counter_time = 0
+def draw_life_bars(screen, life_scores1, life_scores2):
+    life_bar1 = [(40, 660), 
+                 (40+life_scores1, 660),
+                 (40+life_scores1, 680),
+                 (40, 680)
+                 ]
+    life_bar2 = [(960, 660), 
+                 (960-life_scores2, 660),
+                 (960-life_scores2, 680),
+                 (960, 680)
+                 ]
+    scan_line_polygon(screen, life_bar1, (250, 0, 0))
+    scan_line_polygon(screen, life_bar2, (250, 0, 0))
 
 def clock_animation(clock: Clock):
     # 1. Obtém o tempo total em segundos (float para precisão)
@@ -344,6 +355,7 @@ def desenhar_mapa(screen, player1:Player, player2:Player):
     player1.draw_player()    
     player2.draw_player()    
 
+    draw_life_bars(screen, player1.get_life_points(), player2.get_life_points())
 
     #COLORAÇÃO
     """ TABELA DE CORES:

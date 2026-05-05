@@ -44,8 +44,9 @@ player2 = Player(screen, losango2, [textura2], uvs2)
 while player1.dead_or_alive() and player2.dead_or_alive():
     for event in pygame.event.get():
         # TEMPORÁRIA##############
-        #x, y = get_mouse_pos()
-        #print(x, y)
+        if event.type == pygame.MOUSEBUTTONUP:
+            x, y = get_mouse_pos()
+            print(x, y)
         ##########################
 
         if event.type == pygame.QUIT:

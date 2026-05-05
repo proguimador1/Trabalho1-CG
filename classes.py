@@ -1,7 +1,6 @@
 import primitives as pr
 from transforms import create_transform
-import pygame
-from pygame import Surface, image
+from pygame import Surface
 
 class Clock:
     def __init__(self, screen:Surface, big_pointer, small_pointer, fix_point):
@@ -41,7 +40,7 @@ class Player:
         self.polygon = polygon
         self.sprites = sprites
         self.uvs = uvs
-        self.life_points = 100
+        self.life_points = 300
         self.is_alive = True
 
     def draw_player(self):
@@ -50,8 +49,8 @@ class Player:
     def get_polygon(self):
         return self.polygon
     
-    def get_current_sprite(self):
-        return self.sprites[0]
+    def get_life_points(self):
+        return self.life_points
     
     # Falta ainda estipular um valor bom de pixels para mover
     def go_right(self):
@@ -67,7 +66,7 @@ class Player:
         self.draw_player()
 
     def lose_life(self):
-        self.life_points -= 10
+        self.life_points -= 30
 
         self.is_alive = self.life_points > 0
 
