@@ -17,7 +17,7 @@ pygame.init()
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Duelo Salgado")
 
-losango = [(300, 300), (300, 500), (100, 500), (100, 300)]
+losango = [(300, 600), (300, 700), (400, 700), (400, 600)]
 losango2 = [(600, 600), (600, 700), (500, 700), (500, 600)]
 
 uvs = [
@@ -64,19 +64,17 @@ while player1.dead_or_alive() and player2.dead_or_alive():
                     screen = pygame.display.set_mode((width,height))
 
             if event.key == pygame.K_a:
-                player1.go_left()
+                player1.go_left(player2)
             if event.key == pygame.K_d:
-                player1.go_right()
+                player1.go_right(player2)
             if event.key == pygame.K_r:
-                player1.punch()
-                player2.lose_life()
+                player1.punch(player2)
             if event.key == pygame.K_LEFT:
-                player2.go_left()
+                player2.go_left(player1)
             if event.key == pygame.K_RIGHT:
-                player2.go_right()
+                player2.go_right(player1)
             if event.key == pygame.K_m:
-                player2.punch()
-                player1.lose_life()
+                player2.punch(player1)
             
 
     screen.fill((200, 140, 30))

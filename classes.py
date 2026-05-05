@@ -43,6 +43,11 @@ class Player:
         self.life_points = 300
         self.is_alive = True
 
+    def get_hitbox(self):
+        x_coords = [p[0] for p in self.polygon]
+        y_coords = [p[1] for p in self.polygon]
+        return min(x_coords), min(y_coords), max(x_coords), max(y_coords)
+
     def draw_player(self):
         pr.scanline_texture(self.screen, self.polygon, self.uvs, self.sprites[0])
 
@@ -53,17 +58,54 @@ class Player:
         return self.life_points
     
     # Falta ainda estipular um valor bom de pixels para mover
-    def go_right(self):
-        self.polygon = create_transform(self.polygon, delta=(6, 0))
+    def go_right(self, other_player):
+        # 1. Tenta mover
+        new_poly = create_transform(self.polygon, delta=(6, 0))
+        
+        # 2. Checa limites da tela
+        _, _, xmax, _ = self.get_hitbox_from_poly(new_poly)
+        if xmax > 1000:
+            return
 
-    def go_left(self):
-        self.polygon = create_transform(self.polygon, delta=(-6, 0))
+        # 3. Checa colisão com o outro jogador
+        if not self.check_collision(new_poly, other_player):
+            self.polygon = new_poly
+
+    def go_left(self, other_player):
+        new_poly = create_transform(self.polygon, delta=(-6, 0))
+        
+        xmin, _, _, _ = self.get_hitbox_from_poly(new_poly)
+        if xmin < 0:
+            return
+
+        if not self.check_collision(new_poly, other_player):
+            self.polygon = new_poly
+
+    def get_hitbox_from_poly(self, poly):
+        x_coords = [p[0] for p in poly]
+        y_coords = [p[1] for p in poly]
+        return min(x_coords), min(y_coords), max(x_coords), max(y_coords)
+    
+    def check_collision(self, my_new_poly, other_player):
+        # Pega a hitbox do movimento pretendido
+        b1_xmin, b1_ymin, b1_xmax, b1_ymax = self.get_hitbox_from_poly(my_new_poly)
+        # Pega a hitbox atual do oponente
+        b2_xmin, b2_ymin, b2_xmax, b2_ymax = other_player.get_hitbox()
+
+        # Algoritmo AABB de colisão
+        return (b1_xmin < b2_xmax and
+                b1_xmax > b2_xmin and
+                b1_ymin < b2_ymax and
+                b1_ymax > b2_ymin)
 
     # temporariamente assim
-    def punch(self):
+    def punch(self, other_player):
+        # Rotaciona para o soco
         self.polygon = create_transform(self.polygon, theta=30)
-
-        self.draw_player()
+        
+        # Se após o soco a hitbox encostar no outro, ele perde vida
+        if self.check_collision(self.polygon, other_player):
+            other_player.lose_life()
 
     def lose_life(self):
         self.life_points -= 30
