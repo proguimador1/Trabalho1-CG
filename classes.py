@@ -39,8 +39,8 @@ class Player:
     def __init__(self,ID,screen:Surface, polygon:list[tuple[int,int]], sprites:list[Surface], uvs):
         self.ID = ID
         self.screen = screen
-        self.polygon = polygon
-        self.original_polygon = polygon
+        self.action_polygon = polygon
+        self.base_polygon = polygon
         self.sprites = sprites
         self.current_sprite_idx = 0
         self.uvs = uvs
@@ -53,29 +53,34 @@ class Player:
 
     def get_id(self):
         return self.ID
+    
+    def get_sprites(self):
+        return self.sprites
 
     def get_hitbox(self):
-        x_coords = [p[0] for p in self.polygon]
-        y_coords = [p[1] for p in self.polygon]
+        x_coords = [p[0] for p in self.action_polygon]
+        y_coords = [p[1] for p in self.action_polygon]
         return min(x_coords), min(y_coords), max(x_coords), max(y_coords)
 
     def draw_player(self):
 
         idx = self.current_sprite_idx
 
-        pr.scanline_texture(self.screen, self.polygon, self.uvs, self.sprites[idx])
+        pr.scanline_texture(self.screen, self.base_polygon, self.uvs, self.sprites[idx])
 
     def get_polygon(self):
-        return self.polygon
+        return self.base_polygon
     
     def get_life_points(self):
         return self.life_points
     
+    def get_ispunching(self):
+        return self.is_punching
 
     # Falta ainda estipular um valor bom de pixels para mover
     def go_right(self, other_player):
         # 1. Tenta mover
-        new_poly = create_transform(self.polygon, delta=(6, 0))
+        new_poly = create_transform(self.action_polygon, delta=(15, 0))
         
         # 2. Checa limites da tela
         _, _, xmax, _ = self.get_hitbox_from_poly(new_poly)
@@ -84,19 +89,19 @@ class Player:
 
         # 3. Checa colisão com o outro jogador
         if not self.check_collision(new_poly, other_player):
-            self.polygon = new_poly
-            self.original_polygon = new_poly
+            self.action_polygon = new_poly
+            self.base_polygon = new_poly
 
     def go_left(self, other_player):
-        new_poly = create_transform(self.polygon, delta=(-6, 0))
+        new_poly = create_transform(self.action_polygon, delta=(-15, 0))
         
         xmin, _, _, _ = self.get_hitbox_from_poly(new_poly)
         if xmin < 0:
             return
 
         if not self.check_collision(new_poly, other_player):
-            self.polygon = new_poly
-            self.original_polygon = new_poly
+            self.action_polygon = new_poly
+            self.base_polygon = new_poly
 
     def get_hitbox_from_poly(self, poly):
         x_coords = [p[0] for p in poly]
@@ -124,18 +129,18 @@ class Player:
         # Define por quanto tempo o soco fica na tela (150 milissegundos)
         self.punch_timer = pygame.time.get_ticks() + 150
 
-        theta = 0.1 if self.ID == 1 else -0.1
+        theta = 20 if self.ID == 1 else -20
 
-        self.polygon = create_transform(self.polygon, theta=theta)
+        self.action_polygon = create_transform(self.action_polygon, theta=theta)
         
         # Se após o soco a hitbox encostar no outro, ele perde vida
-        if self.check_collision(self.polygon, other_player):
+        if self.check_collision(self.action_polygon, other_player):
             other_player.lose_life()
 
     def stop_punch(self):
         self.is_punching = False
         self.current_sprite_idx = 0
-        self.polygon = self.original_polygon
+        self.action_polygon = self.base_polygon
 
     def update_sprite(self):
         if self.is_punching:

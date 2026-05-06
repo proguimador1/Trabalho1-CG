@@ -191,8 +191,16 @@ def minimap(screen, player1:Player, player2:Player):
     minipol1 = janela_viewport(janela_mundo, viewport_tv, player1.get_polygon())
     minipol2 = janela_viewport(janela_mundo, viewport_tv, player2.get_polygon())
 
-    miniplayer1 = Player(1,screen, minipol1, [pygame.image.load('coxinha.jpeg')], miniuv1)
-    miniplayer2 = Player(2,screen, minipol2, [pygame.image.load('coxinha.jpeg')], miniuv2)
+    miniplayer1 = Player(1,screen, minipol1, player1.get_sprites(), miniuv1)
+    miniplayer2 = Player(2,screen, minipol2, player2.get_sprites(), miniuv2)
+
+    if player1.get_ispunching():
+        miniplayer1.punch(miniplayer2)
+    if player2.get_ispunching():
+        miniplayer2.punch(miniplayer1)
+
+    miniplayer1.update_sprite()
+    miniplayer2.update_sprite()
 
     miniplayer1.draw_player()
     miniplayer2.draw_player()

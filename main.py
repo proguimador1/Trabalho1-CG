@@ -18,8 +18,8 @@ pygame.init()
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Duelo Salgado")
 
-losango = [(300, 600), (300, 700), (400, 700), (400, 600)]
-losango2 = [(600, 600), (600, 700), (500, 700), (500, 600)]
+losango1 = [(300, 600), (300, 700), (400, 700), (400, 600)]
+losango2 = [(600, 600), (600, 700), (700, 700), (700, 600)]
 
 uvs = [
     (0.5, 0.0),
@@ -41,7 +41,7 @@ sprites_player2 = ['coxinha.jpeg', r'sprites\test-img2.png']
 textura = [pygame.image.load(sprite).convert_alpha() for sprite in sprites_player1]
 textura2 = [pygame.image.load(sprite).convert_alpha() for sprite in sprites_player2]
 
-player1 = Player(1,screen, losango, textura, uvs)
+player1 = Player(1,screen, losango1, textura, uvs)
 player2 = Player(2,screen, losango2, textura2, uvs2)
 
 
