@@ -19,8 +19,15 @@ pygame.init()
 
 screen = pygame.display.set_mode((width, heigth))
 
-losango = [(300, 300), (300, 500), (100, 500), (100, 300)]
-losango2 = [(600, 600), (600, 700), (500, 700), (500, 600)]
+losango = [(300, 300), (300, 600), (200, 600), (200, 300)]
+sprite_sheet = pygame.image.load('sprites/sprite1.png').convert_alpha()
+uvs = [
+    (0.5, 0.0),
+    (1.0, 0.5),
+    (0.5, 1.0),
+    (0.0, 0.5)
+]
+"""losango2 = [(600, 600), (600, 700), (500, 700), (500, 600)]
 
 uvs = [
     (0.5, 0.0),
@@ -37,7 +44,7 @@ uvs2 = [
 ]
 
 textura = pygame.image.load('sprites/test-img.jpg').convert_alpha()
-textura2 = pygame.image.load('sprites/test-img2.png').convert_alpha()
+textura2 = pygame.image.load('sprites/test-img2.png').convert_alpha()"""
 
 """fix_point = (300, 300)
 pointer1 = [fix_point, (300,400)]
@@ -49,7 +56,7 @@ theta2 = 0.3
 
 clock = Clock(screen,pointer2, pointer1, fix_point, radius)"""
 
-janela_mundo = (0, 0, 1000, 700)
+"""janela_mundo = (0, 0, 1000, 700)
 viewport_tv = (500, 290, 700, 390)
 
 player1 = Player(screen, losango, [textura], uvs)
@@ -61,35 +68,18 @@ minipol2 = janela_viewport(janela_mundo, viewport_tv, player2.get_polygon())
 uv1 = calculate_uvs(minipol1)
 uv2 = calculate_uvs(minipol2)
 
-print(uv1)
-print(uv2)
+print(uv1)"""
+#print(uv2)
 
 while True:
-    screen.fill((0,0,0))
+    screen.fill((250, 250, 250))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
-                player1.go_left()
-            if event.key == pygame.K_d:
-                player1.go_right()
-            if event.key == pygame.K_LEFT:
-                player2.go_left()
-            if event.key == pygame.K_RIGHT:
-                player2.go_right()
-
-
-    #losango = create_transform(losango, theta=theta)
-
-    #theta += 1
-
-    #clock.run_clock(0.0, theta2)
-
-    player1.draw_player()
-    player2.draw_player()
+        
+    pr.scanline_texture(screen, losango, uvs, sprite_sheet)
 
     #pr.polygon(screen, losango, (250,0,0,250))
     
