@@ -1,6 +1,7 @@
 import primitives as pr
 from transforms import create_transform
 from pygame import Surface
+import pygame
 
 class Clock:
     def __init__(self, screen:Surface, big_pointer, small_pointer, fix_point):
@@ -39,10 +40,16 @@ class Player:
         self.ID = ID
         self.screen = screen
         self.polygon = polygon
+        self.original_polygon = polygon
         self.sprites = sprites
+        self.current_sprite_idx = 0
         self.uvs = uvs
         self.life_points = 300
         self.is_alive = True
+
+        # Animação de soco:
+        self.punch_timer = 0
+        self.is_punching = False
 
     def get_id(self):
         return self.ID
@@ -53,7 +60,10 @@ class Player:
         return min(x_coords), min(y_coords), max(x_coords), max(y_coords)
 
     def draw_player(self):
-        pr.scanline_texture(self.screen, self.polygon, self.uvs, self.sprites[0])
+
+        idx = self.current_sprite_idx
+
+        pr.scanline_texture(self.screen, self.polygon, self.uvs, self.sprites[idx])
 
     def get_polygon(self):
         return self.polygon
@@ -61,6 +71,7 @@ class Player:
     def get_life_points(self):
         return self.life_points
     
+
     # Falta ainda estipular um valor bom de pixels para mover
     def go_right(self, other_player):
         # 1. Tenta mover
@@ -74,6 +85,7 @@ class Player:
         # 3. Checa colisão com o outro jogador
         if not self.check_collision(new_poly, other_player):
             self.polygon = new_poly
+            self.original_polygon = new_poly
 
     def go_left(self, other_player):
         new_poly = create_transform(self.polygon, delta=(-6, 0))
@@ -84,6 +96,7 @@ class Player:
 
         if not self.check_collision(new_poly, other_player):
             self.polygon = new_poly
+            self.original_polygon = new_poly
 
     def get_hitbox_from_poly(self, poly):
         x_coords = [p[0] for p in poly]
@@ -104,24 +117,32 @@ class Player:
 
     # temporariamente assim
     def punch(self, other_player):
-        original_polygon = self.polygon
 
-        theta = 10 if self.ID == 1 else -10
+        self.is_punching = True
+        self.current_sprite_idx = 1 # Sprite de soco
+            
+        # Define por quanto tempo o soco fica na tela (150 milissegundos)
+        self.punch_timer = pygame.time.get_ticks() + 150
+
+        theta = 0.1 if self.ID == 1 else -0.1
 
         self.polygon = create_transform(self.polygon, theta=theta)
         
         # Se após o soco a hitbox encostar no outro, ele perde vida
         if self.check_collision(self.polygon, other_player):
             other_player.lose_life()
-        
-        # 5. Desenha o soco esticado
-        self.draw_player()
-        
-        # 6. RETORNA à escala original
-        # Em um jogo com frames, isso seria feito no próximo frame, 
-        # mas aqui restauramos o atributo para o próximo ciclo de desenho.
-        self.polygon = original_polygon
 
+    def stop_punch(self):
+        self.is_punching = False
+        self.current_sprite_idx = 0
+        self.polygon = self.original_polygon
+
+    def update_sprite(self):
+        if self.is_punching:
+            # Se o tempo atual ultrapassou o tempo de soco (150ms)
+            if pygame.time.get_ticks() > self.punch_timer:
+                self.stop_punch()
+    
     def lose_life(self):
         self.life_points -= 30
 
