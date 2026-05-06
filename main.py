@@ -5,6 +5,7 @@ width = 1000
 height = 700
 fullscreen = False
 from classes import *
+import time
 
 #####################
 def get_mouse_pos():
@@ -34,11 +35,14 @@ uvs2 = [
     (0.0, 0.0)
 ]
 
-textura = pygame.image.load('coxinha.jpeg').convert_alpha()
-textura2 = pygame.image.load('coxinha.jpeg').convert_alpha()
+sprites_player1 = ['coxinha.jpeg', r'sprites\test-img.jpg']
+sprites_player2 = ['coxinha.jpeg', r'sprites\test-img2.png']
 
-player1 = Player(1,screen, losango, [textura], uvs)
-player2 = Player(2,screen, losango2, [textura2], uvs2)
+textura = [pygame.image.load(sprite).convert_alpha() for sprite in sprites_player1]
+textura2 = [pygame.image.load(sprite).convert_alpha() for sprite in sprites_player2]
+
+player1 = Player(1,screen, losango, textura, uvs)
+player2 = Player(2,screen, losango2, textura2, uvs2)
 
 
 while player1.dead_or_alive() and player2.dead_or_alive():
@@ -80,8 +84,9 @@ while player1.dead_or_alive() and player2.dead_or_alive():
     screen.fill((200, 140, 30))
 
     mp.desenhar_mapa(screen, player1, player2)
-
-
+    
+    player1.update_sprite()
+    player2.update_sprite()
 
     pygame.display.flip()
 
