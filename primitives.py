@@ -169,7 +169,11 @@ def scanline_texture(superficie, pontos, uvs, textura):
 
                 if 0 <= tx < tex_w and 0 <= ty < tex_h:
                     cor = textura.get_at((tx, ty))
-                    set_pixel(superficie, x, y, cor)
+                    # --- A CORREÇÃO ESTÁ AQUI ---
+                    # cor[3] é o canal Alpha. Se for 0, o pixel é transparente.
+                    # Só chamamos o set_pixel se o pixel NÃO for transparente.
+                    if cor[3] > 0:
+                        set_pixel(superficie, x, y, cor)
 
 def scan_line_polygon(screen:Surface, points:list[tuple[int, int]], color):
     n = len(points)

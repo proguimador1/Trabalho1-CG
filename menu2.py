@@ -35,7 +35,7 @@ def desenhar_menu():
                 text_cox.set_at((x, y), (115, 85, 41, 255))
 
     # Leitura da textura do player normal
-    textura_player = pygame.image.load(r"sprites\sprite3-soco.jpeg").convert_alpha()
+    textura_player = pygame.image.load(r"sprites\sprite3-soco.png").convert_alpha()
 
     # Captura das dimensões da textura do stickman normal
     largura_player = textura_player.get_width()

@@ -6,6 +6,7 @@ import transforms as tr
 from transforms import *
 import math
 import menu2 as mn
+import mapa as mp
 running = True
 width = 1000
 height = 700
@@ -15,8 +16,8 @@ tela = pygame.display.set_mode((width, height))
 
 def get_mouse_pos():
     return pygame.mouse.get_pos()
-mn.desenhar_menu()
-
+#mn.desenhar_menu()
+mp.desenhar_mapa()
 while True:
     
     for event in pygame.event.get():
@@ -29,7 +30,7 @@ while True:
             x, y = get_mouse_pos()
             print(x, y)
         ##########################
-
+    
     pygame.display.flip()
 
 pygame.quit()

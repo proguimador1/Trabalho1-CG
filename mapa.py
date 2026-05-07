@@ -118,19 +118,40 @@ objetos_cenario = [
 miniuv1 = [(0.0, 0.0), (0.0, 1.0), (1.0, 1.0), (1.0, 0.0)]
 miniuv2 = [(1.0, 0.0), (1.0, 1.0), (0.0, 1.0), (0.0, 0.0)]
 
+import pygame
+
 def draw_life_bars(screen, life_scores1, life_scores2):
+    # Configuração da fonte (Ideal carregar fora do loop se possível)
+    fonte = pygame.font.SysFont('arial', 20)
+    cor_texto = (0, 0, 0) # Branco
+    
+    # Coordenadas das barras (Polígonos)
     life_bar1 = [(40, 660), 
-                 (40+life_scores1, 660),
-                 (40+life_scores1, 680),
-                 (40, 680)
-                 ]
+                 (40 + life_scores1, 660),
+                 (40 + life_scores1, 680),
+                 (40, 680)]
+    
     life_bar2 = [(960, 660), 
-                 (960-life_scores2, 660),
-                 (960-life_scores2, 680),
-                 (960, 680)
-                 ]
+                 (960 - life_scores2, 660),
+                 (960 - life_scores2, 680),
+                 (960, 680)]
+    
+    # Desenha as barras usando sua função de polígono
     scan_line_polygon(screen, life_bar1, (250, 0, 0))
     scan_line_polygon(screen, life_bar2, (250, 0, 0))
+
+    # --- Escrita dos Nomes ---
+    
+    # Player 1: Alinhado à esquerda (início da barra 1)
+    img_p1 = fonte.render("Player 1", True, cor_texto)
+    # y=665 para centralizar verticalmente na barra de altura 20
+    screen.blit(img_p1, (45, 658)) 
+    
+    # Player 2: Alinhado à direita (início da barra 2 no x=960)
+    img_p2 = fonte.render("Player 2", True, cor_texto)
+    # Largura do texto para ajustar o alinhamento à direita
+    largura_p2 = img_p2.get_width()
+    screen.blit(img_p2, (955 - largura_p2, 658))
 
 def clock_animation(clock: Clock):
     # 1. Obtém o tempo total em segundos (float para precisão)
