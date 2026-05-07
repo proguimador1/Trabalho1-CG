@@ -22,9 +22,9 @@ def centro_botao(vertices):
 
 pygame.mixer.init()
 
-som_click = pygame.mixer.Sound("click.mp3")
+som_click = pygame.mixer.Sound("sounds/click.mp3")
 som_click.set_volume(0.7)
-pygame.mixer.music.load("Final Boss Battle - Rod Kim.mp3")
+pygame.mixer.music.load("sounds/Final Boss Battle - Rod Kim.mp3")
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 text_cox = pygame.image.load("coxinha.jpeg").convert_alpha()
