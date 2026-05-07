@@ -15,6 +15,8 @@ tela = pygame.display.set_mode((width, height))
 
 def get_mouse_pos():
     return pygame.mouse.get_pos()
+mn.desenhar_menu()
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -26,8 +28,6 @@ while True:
             x, y = get_mouse_pos()
             print(x, y)
         ##########################
-
-    mn.desenhar_menu()
 
     pygame.display.flip()
 
