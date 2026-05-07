@@ -35,8 +35,8 @@ uvs2 = [
     (0.0, 0.0)
 ]
 
-sprites_player1 = ['coxinha.jpeg', r'sprites\test-img.jpg']
-sprites_player2 = ['coxinha.jpeg', r'sprites\test-img2.png']
+sprites_player1 = ['sprites\sprite1.png', r'sprites\sprite2.png']
+sprites_player2 = ['sprites\sprite1.png', r'sprites\sprite2.png']
 
 textura = [pygame.image.load(sprite).convert_alpha() for sprite in sprites_player1]
 textura2 = [pygame.image.load(sprite).convert_alpha() for sprite in sprites_player2]
