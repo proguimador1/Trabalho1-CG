@@ -35,11 +35,10 @@ uvs2 = [
     (0.0, 0.0)
 ]
 
-sprites_player1 = ['sprites\sprite1.png', r'sprites\sprite2.png']
-sprites_player2 = ['sprites\sprite1.png', r'sprites\sprite2.png']
+sprites_player1 = [r'sprites\sprite1-guarda.jpeg', r'sprites\sprite2-corrida.jpeg', r'sprites\sprite3-soco.jpeg']
 
 textura = [pygame.image.load(sprite).convert_alpha() for sprite in sprites_player1]
-textura2 = [pygame.image.load(sprite).convert_alpha() for sprite in sprites_player2]
+textura2 = [pygame.transform.flip(sprite, True, False) for sprite in textura]
 
 player1 = Player(1,screen, losango1, textura, uvs)
 player2 = Player(2,screen, losango2, textura2, uvs2)

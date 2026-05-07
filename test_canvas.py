@@ -20,7 +20,9 @@ pygame.init()
 screen = pygame.display.set_mode((width, heigth))
 
 losango = [(300, 300), (300, 600), (200, 600), (200, 300)]
-sprite_sheet = pygame.image.load('sprites/sprite1.png').convert_alpha()
+sprite_sheet = pygame.image.load(r'C:\Users\guima\OneDrive\Pictures\Capturas de tela\sprite_guarda.png').convert_alpha()
+COR_FUNDO = (255, 255, 255)
+sprite_sheet.set_colorkey(COR_FUNDO)
 uvs = [
     (0.5, 0.0),
     (1.0, 0.5),
@@ -72,7 +74,7 @@ print(uv1)"""
 #print(uv2)
 
 while True:
-    screen.fill((250, 250, 250))
+    screen.fill((250, 0, 0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
