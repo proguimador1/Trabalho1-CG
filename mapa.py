@@ -115,7 +115,7 @@ objetos_cenario = [
     }
 ]
 
-miniuv1 = [(1.0, 0.0), (1.0, 1.0), (0.0, 1.0), (0.0, 0.0)]
+miniuv1 = [(0.0, 0.0), (0.0, 1.0), (1.0, 1.0), (1.0, 0.0)]
 miniuv2 = [(1.0, 0.0), (1.0, 1.0), (0.0, 1.0), (0.0, 0.0)]
 
 def draw_life_bars(screen, life_scores1, life_scores2):

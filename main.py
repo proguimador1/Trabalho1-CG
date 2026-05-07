@@ -20,14 +20,14 @@ mn.desenhar_menu()
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Duelo Salgado")
 
-losango1 = [(300, 600), (300, 700), (400, 700), (400, 600)]
-losango2 = [(600, 600), (600, 700), (700, 700), (700, 600)]
+losango1 = [(300, 400), (300, 700), (400, 700), (400, 400)]
+losango2 = [(600, 400), (600, 700), (700, 700), (700, 400)]
 
 uvs = [
-    (0.5, 0.0),
-    (1.0, 0.5),
-    (0.5, 1.0),
-    (0.0, 0.5)
+    (0.0, 0.0), 
+    (0.0, 1.0), 
+    (1.0, 1.0), 
+    (1.0, 0.0)
 ]
 
 uvs2 = [
@@ -38,9 +38,10 @@ uvs2 = [
 ]
 
 sprites_player1 = [r'sprites\sprite1-guarda.jpeg', r'sprites\sprite2-corrida.jpeg', r'sprites\sprite3-soco.jpeg']
+sprites_player2 = [r'sprites\sprite1-guarda.jpeg', r'sprites\sprite2-corrida.jpeg', r'sprites\sprite3-soco.jpeg']
 
-textura = [pygame.image.load(sprite).convert_alpha() for sprite in sprites_player1]
-textura2 = [pygame.transform.flip(sprite, True, False) for sprite in textura]
+textura = [pygame.image.load(sprite).convert_alpha() for sprite in sprites_player2]
+textura2 = [pygame.image.load(sprite).convert_alpha() for sprite in sprites_player2]
 
 player1 = Player(1,screen, losango1, textura, uvs)
 player2 = Player(2,screen, losango2, textura2, uvs2)

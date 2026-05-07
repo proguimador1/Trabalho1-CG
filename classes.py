@@ -51,6 +51,10 @@ class Player:
         self.punch_timer = 0
         self.is_punching = False
 
+        # Animação de corrida:
+        self.run_timer = 0
+        self.is_running = False
+
     def get_id(self):
         return self.ID
     
@@ -79,6 +83,12 @@ class Player:
 
     # Falta ainda estipular um valor bom de pixels para mover
     def go_right(self, other_player):
+
+        self.is_punching = True
+        self.current_sprite_idx = 1 # Sprite de corrida
+            
+        # Define por quanto tempo o sprite de corrida fica na tela (150 milissegundos)
+        self.run_timer = pygame.time.get_ticks() + 150
         # 1. Tenta mover
         new_poly = create_transform(self.action_polygon, delta=(15, 0))
         
@@ -93,6 +103,13 @@ class Player:
             self.base_polygon = new_poly
 
     def go_left(self, other_player):
+
+        self.is_punching = True
+        self.current_sprite_idx = 1 # Sprite de corrida
+            
+        # Define por quanto tempo o sprite de corrida fica na tela (150 milissegundos)
+        self.run_timer = pygame.time.get_ticks() + 150
+
         new_poly = create_transform(self.action_polygon, delta=(-15, 0))
         
         xmin, _, _, _ = self.get_hitbox_from_poly(new_poly)
@@ -142,11 +159,21 @@ class Player:
         self.current_sprite_idx = 0
         self.action_polygon = self.base_polygon
 
+    def stop_run(self):
+        self.is_running = False
+        self.current_sprite_idx = 0
+        self.action_polygon = self.base_polygon
+
     def update_sprite(self):
         if self.is_punching:
-            # Se o tempo atual ultrapassou o tempo de soco (150ms)
+            # Se o tempo atual ultrapassou o tempo da animação
             if pygame.time.get_ticks() > self.punch_timer:
                 self.stop_punch()
+            
+        if self.is_running:
+            if pygame.time.get_ticks() > self.run_timer:
+                self.stop_run()
+            
     
     def lose_life(self):
         self.life_points -= 30
