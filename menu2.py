@@ -35,7 +35,7 @@ def desenhar_menu():
                 text_cox.set_at((x, y), (115, 85, 41, 255))
 
     # Leitura da textura do player normal
-    textura_player = pygame.image.load(r"sprites\sprite3_soco.jpeg").convert_alpha()
+    textura_player = pygame.image.load(r"sprites\sprite3-soco.jpeg").convert_alpha()
 
     # Captura das dimensões da textura do stickman normal
     largura_player = textura_player.get_width()
@@ -49,7 +49,9 @@ def desenhar_menu():
             if r > 210 and g > 210 and b > 210:
                 textura_player.set_at((x, y), (210, 155, 54, 255))  
 
-    while True:
+    rodando = True
+
+    while rodando:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -58,7 +60,12 @@ def desenhar_menu():
             # TEMPORÁRIA##############
         if event.type == pygame.MOUSEBUTTONUP:
             x, y = get_mouse_pos()
-            print(x, y)
+            if 350 <= x <= 650 and 315 <= y <= 385:
+                rodando = False
+
+            if 350 <= x <= 650 and 535 <= y <= 605:
+                pygame.quit()
+                sys.exit()
         ##########################
         
 
@@ -188,3 +195,6 @@ def desenhar_menu():
 
         base_text_player2 = [(785,240),(900,240),(900,500),(785,500)]
         pr.scanline_texture(screen, base_text_player2, [(1, 0), (0, 0), (0, 1), (1,1)], textura_player)
+
+if __name__ == 'main':
+    desenhar_menu()

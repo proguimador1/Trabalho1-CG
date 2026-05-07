@@ -1,1 +1,0 @@
-<h1 align='center'> Trabalho 1 de Computação Gráfica. </h1>

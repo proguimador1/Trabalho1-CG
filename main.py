@@ -5,7 +5,7 @@ width = 1000
 height = 700
 fullscreen = False
 from classes import *
-import time
+import menu2 as mn
 
 #####################
 def get_mouse_pos():
@@ -14,6 +14,8 @@ def get_mouse_pos():
 #####################
 
 pygame.init()
+
+mn.desenhar_menu()
 
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Duelo Salgado")
