@@ -1,4 +1,4 @@
-from classes import Player
+'''from classes import Player
 import primitives as pr
 from primitives import *
 import pygame
@@ -19,6 +19,16 @@ def centro_botao(vertices):
     return (x1 + x2) // 2, (y1 + y2) // 2
 
 
+<<<<<<< HEAD
+=======
+pygame.mixer.init()
+
+som_click = pygame.mixer.Sound("sounds/click.mp3")
+som_click.set_volume(0.7)
+pygame.mixer.music.load("sounds/Final Boss Battle - Rod Kim.mp3")
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)
+>>>>>>> 11bd96a71e4863cd20e6eb173eb131dae2924dde
 text_cox = pygame.image.load("coxinha.jpeg").convert_alpha()
 largura = text_cox.get_width()
 altura = text_cox.get_height()
@@ -118,3 +128,4 @@ while rodando:
 
 pygame.quit()
 sys.exit()
+'''

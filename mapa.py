@@ -174,12 +174,12 @@ def janela_viewport(janela, viewport, primitive):
 
 def minimap(screen, player1:Player, player2:Player):
     janela_mundo = (0, 0, 1000, 700)
-    viewport_tv = (500, 290, 700, 390)
+    viewport_tv = (505, 295, 695, 380)
 
-    tv = objetos_cenario[3]
+    tv = [(505,295), (695,295), (695, 380), (505,380)]
 
-    polygon(screen, tv['pontos'], (0,0,0))
-    scan_line_polygon(screen, tv['pontos'], (255, 165, 0))
+    polygon(screen, tv, (0,0,0))
+    scan_line_polygon(screen, tv, (255, 165, 0))
 
     for obj in objetos_cenario:
         zoom_points = janela_viewport(janela_mundo, viewport_tv, obj['pontos'])
