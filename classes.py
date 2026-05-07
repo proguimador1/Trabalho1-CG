@@ -124,7 +124,7 @@ class Player:
     def punch(self, other_player):
 
         self.is_punching = True
-        self.current_sprite_idx = 1 # Sprite de soco
+        self.current_sprite_idx = 2 # Sprite de soco
             
         # Define por quanto tempo o soco fica na tela (150 milissegundos)
         self.punch_timer = pygame.time.get_ticks() + 150
