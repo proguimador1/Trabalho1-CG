@@ -84,7 +84,7 @@ class Player:
     # Falta ainda estipular um valor bom de pixels para mover
     def go_right(self, other_player):
 
-        self.is_punching = True
+        self.is_running = True
         self.current_sprite_idx = 1 # Sprite de corrida
             
         # Define por quanto tempo o sprite de corrida fica na tela (150 milissegundos)
@@ -104,7 +104,7 @@ class Player:
 
     def go_left(self, other_player):
 
-        self.is_punching = True
+        self.is_running = True
         self.current_sprite_idx = 1 # Sprite de corrida
             
         # Define por quanto tempo o sprite de corrida fica na tela (150 milissegundos)
