@@ -1,7 +1,11 @@
 <h1 align='center'> Trabalho 1 de Computação Gráfica. </h1>
 
-# READ.ME - Jogo de Luta 2D
-## (Duelo Salgado)
+# README - Jogo de Luta 2D
+## Duelo Salgado
+
+###  Equipe: 
+Guilherme Souto de Andrade, João Victor dos Santos Sales e 
+Rafael Monteiro De Castro Cavalcante.
 
 ---
 
@@ -9,7 +13,7 @@
 
 Este jogo multiplayer local foi desenvolvido em Python utilizando a biblioteca Pygame e tem como objetivo representar uma disputa entre dois jogadores em uma cantina da UECE (Universidade Estadual do Ceará) pelo último salgado disponível na prateleira: uma coxinha.
 
-O vencedor será o jogador que derrotar o adversário primeiro e conquistar o salgado.
+O vencedor será o jogador que derrotar o adversário primeiro para conquistar o último salgado.
 
 A implementação do projeto foi baseada em algoritmos clássicos de Computação Gráfica exigidos pela disciplina, incluindo rasterização de linhas, circunferências, polígonos e elipses, além de preenchimento por scanline, mapeamento de textura, transformações geométricas 2D e outros métodos gráficos desenvolvidos manualmente.
 
@@ -53,6 +57,8 @@ Responsável pelas matrizes de transformação geométrica e pelos métodos de a
 ### classes.py
 Arquivo contendo as classes para animações.
 
+### vitoria.py
+Arquivo contendo o desenho da tela de vitória após o player 1 ou 2 vencer o jogo
 ---
 
 ## SPRITES
