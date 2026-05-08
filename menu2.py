@@ -12,6 +12,8 @@ screen = pygame.display.set_mode((width, height))
 def get_mouse_pos():
     return pygame.mouse.get_pos()
 def desenhar_menu():
+    som_click = pygame.mixer.Sound(r"sounds/click.mp3")
+    som_click.set_volume(0.7)
     # Nomeação do canva como Menu
     pygame.display.set_caption("Menu")
 
@@ -61,9 +63,11 @@ def desenhar_menu():
         if event.type == pygame.MOUSEBUTTONUP:
             x, y = get_mouse_pos()
             if 350 <= x <= 650 and 315 <= y <= 385:
+                som_click.play()
                 rodando = False
 
             if 350 <= x <= 650 and 535 <= y <= 605:
+                som_click.play()
                 pygame.quit()
                 sys.exit()
         ##########################

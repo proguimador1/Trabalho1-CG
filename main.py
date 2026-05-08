@@ -32,7 +32,12 @@ def preparar_sprite_transparente(caminho):
     return nova_img
 
 pygame.init()
+pygame.mixer.init()
 mn.desenhar_menu()
+
+pygame.mixer.music.load(r"sounds\721472__victor_natas__boss-fight.wav")
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)
 
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Duelo Salgado")
@@ -68,10 +73,12 @@ while rodando:
 
             if event.key == pygame.K_a: player1.go_left(player2)
             if event.key == pygame.K_d: player1.go_right(player2)
-            if event.key == pygame.K_r: player1.punch(player2)
+            if event.key == pygame.K_r: 
+                player1.punch(player2)
             if event.key == pygame.K_LEFT: player2.go_left(player1)
             if event.key == pygame.K_RIGHT: player2.go_right(player1)
-            if event.key == pygame.K_m: player2.punch(player1)
+            if event.key == pygame.K_m: 
+                player2.punch(player1)
 
     # Limpa a tela com a cor de fundo
     screen.fill((200, 140, 30))

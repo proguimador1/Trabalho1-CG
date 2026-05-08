@@ -12,7 +12,10 @@ screen = pygame.display.set_mode((width, height))
 
 def desenhar_tela_vitoria(id_player):
     # Nomeação do canva como Menu
-    pygame.display.set_caption("Menu")
+    pygame.mixer.music.load(r"sounds\843046__silverillusionist__victory-fanfare-8-bit-thunder-4.wav")
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play(-1)
+    pygame.display.set_caption("Vitória")
 
     # Inicialização das variáveis para a rotação dentro do looping
     angulo = 0.02
