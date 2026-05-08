@@ -1,131 +1,204 @@
-'''from classes import Player
 import primitives as pr
 from primitives import *
 import pygame
-import sys
-import transforms as tr
 from transforms import *
-import math
+import transforms as tr
+import sys
+width = 1000
+height = 700
 
-pygame.init()
-largura, altura = 800, 600
-tela = pygame.display.set_mode((largura, altura))
-pygame.display.set_caption("menu")
+screen = pygame.display.set_mode((width, height))
 
+def get_mouse_pos():
+    return pygame.mouse.get_pos()
+def desenhar_menu():
+    som_click = pygame.mixer.Sound(r"sounds/click.mp3")
+    som_click.set_volume(0.7)
+    # Nomeação do canva como Menu
+    pygame.display.set_caption("Menu")
 
-def centro_botao(vertices):
-    x1, y1 = vertices[0]
-    x2, y2 = vertices[2]
-    return (x1 + x2) // 2, (y1 + y2) // 2
+    # Inicialização das variáveis para a rotação dentro do looping
+    angulo = 0.02
+    tempo = 0
 
+    # Leitura da textura da coxinha
+    text_cox = pygame.image.load("coxinha.jpeg").convert_alpha()
 
-<<<<<<< HEAD
-=======
-pygame.mixer.init()
+    # Captura das dimensões da textura da coxinha
+    largura = text_cox.get_width()
+    altura = text_cox.get_height()
+    
+    # Aplicação para limpar bordas desnecessárias da textura
+    for x in range(largura):
+        for y in range(altura):
+            r, g, b, a = text_cox.get_at((x, y))
 
-som_click = pygame.mixer.Sound("sounds/click.mp3")
-som_click.set_volume(0.7)
-pygame.mixer.music.load("sounds/Final Boss Battle - Rod Kim.mp3")
-pygame.mixer.music.set_volume(0.5)
-pygame.mixer.music.play(-1)
->>>>>>> 11bd96a71e4863cd20e6eb173eb131dae2924dde
-text_cox = pygame.image.load("coxinha.jpeg").convert_alpha()
-largura = text_cox.get_width()
-altura = text_cox.get_height()
-for x in range(largura):
-    for y in range(altura):
-        r, g, b, a = text_cox.get_at((x, y))
-        if r > 170 and g > 170 and b > 170:
-            text_cox.set_at((x, y), (192, 192, 192, 255))
+            if r > 170 and g > 170 and b > 170:
+                text_cox.set_at((x, y), (115, 85, 41, 255))
 
-angulo = 0.02
-base = [(375, 200), (375, 250), (425, 250), (425, 200)]
+    # Leitura da textura do player normal
+    textura_player = pygame.image.load(r"sprites\sprite3-soco.png").convert_alpha()
 
-titulo_font = pygame.font.SysFont("ROG Fonts", 50)
-font = pygame.font.SysFont("ROG Fonts", 30)
-tempo = 0
-rodando = True
-while rodando:
-    for evento in pygame.event.get():
-        if evento.type == pygame.QUIT:
-            rodando = False
-        if evento.type == pygame.MOUSEBUTTONUP:
-            x, y = evento.pos
-            if 250 <= x <= 550 and 250 <= y <= 300:
-                print("Opção 1 selecionada")
-            elif 270 <= x <= 530 and 430 <= y <= 470:
+    # Captura das dimensões da textura do stickman normal
+    largura_player = textura_player.get_width()
+    altura_player = textura_player.get_height()
+
+    # Aplicação para limpar bordas desnecessárias da textura
+    for x in range(largura_player):
+        for y in range(altura_player):
+            r, g, b, a = textura_player.get_at((x, y))
+
+            if r > 210 and g > 210 and b > 210:
+                textura_player.set_at((x, y), (210, 155, 54, 255))  
+
+    rodando = True
+
+    while rodando:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            # TEMPORÁRIA##############
+        if event.type == pygame.MOUSEBUTTONUP:
+            x, y = get_mouse_pos()
+            if 350 <= x <= 650 and 315 <= y <= 385:
+                som_click.play()
                 rodando = False
-    tela.fill((255, 165, 0))
 
-    vertices = [(250, 200), (550, 200), (550, 250), (250, 250)]
+            if 350 <= x <= 650 and 535 <= y <= 605:
+                som_click.play()
+                pygame.quit()
+                sys.exit()
+        ##########################
+        
 
-    pr.ellipisis(tela, 150, 25, (400, 325), (0, 0, 0))
-    pr.flood_fill(tela, (410, 335), (128, 128, 128))
+        pygame.display.flip()
 
-    t1 = font.render("Opção 1", True, (0, 0, 0))
-    cx, cy = centro_botao(vertices)
-    largura = t1.get_width()
-    altura = t1.get_height()
-    tela.blit(t1, (400 - largura / 2, 325 - altura / 2))
+        # Pintando screen toda
+        pr.flood_fill(screen, (25,25), (210, 155, 54))
 
-    vertices = [(250, 430), (550, 430), (550, 470), (250, 470)]
+        # Scanline gradiente aplicado ao topo do menu
+        pr.scanline_fill_gradiente(screen, [(0,0),(1000,0),(1000,75),(900,65),(100,65),(0,75)], [
+        (25, 15, 5),
+        (35, 21, 8),
+        (45, 28, 10),
+        (55, 34, 12),
+        (62, 38, 14),
+        (78, 50, 20),
+        (96, 63, 28),
+        (118, 79, 40),
+        (142, 98, 55)
+        ])
 
-    pr.ellipisis(tela, 150, 25, (400, 500), (0, 0, 0))
-    pr.flood_fill(tela, (410, 510), (128, 128, 128))
+        # Scanline gradiente aplicado à base do menu
+        pr.scanline_fill_gradiente(screen, [(0,625),(100,635),(900,635),(1000,625),(1000,700),(0,700)], [
+        (25, 15, 5),
+        (35, 21, 8),
+        (45, 28, 10),
+        (55, 34, 12),
+        (62, 38, 14),
+        (78, 50, 20),
+        (96, 63, 28),
+        (118, 79, 40),
+        (142, 98, 55)
+        ])
+        
+        # Variáveis para as fontes
+        # Fonte do título
+        titulo_fonte = pygame.font.SysFont("Arial", 50)
+        texto_titulo = titulo_fonte.render("DUELO SALGADO", True, (62, 38, 14))
 
-    t2 = font.render("Sair", True, (0, 0, 0))
-    cx, cy = centro_botao(vertices)
-    largura = t2.get_width()
-    altura = t2.get_height()
-    tela.blit(t2, (400 - largura // 2, 500 - altura // 2))
+        # Fonte do botão
+        botoes_fonte = pygame.font.SysFont("Arial", 30)
 
-    text_surface = titulo_font.render("DUELO SALGADO", True, (0, 0, 0))
-    largura = text_surface.get_width()
-    altura = text_surface.get_height()
-    tela.blit(text_surface, (400 - largura / 2, 100))
+        screen.blit(texto_titulo, (320, 110))
 
-    vertices = [
-        (100, 100),
-        (700, 100),
-        (700, 170),
-        (100, 170),
-    ]
-    pr.polygon(tela, vertices, (0, 0, 0))
-    pr.flood_fill(tela, (110, 110), (255, 0, 0))
+        # Poligono do título
+        pr.polygon(screen, [(250,95),(750,95),(750,175),(250,175)], (62, 38, 14))
+        pr.flood_fill(screen, (282,133), (216, 196, 160)) # Azul petróleo (0,0,0)
+        pr.flood_fill(screen, (335, 146), (216, 196, 160))
 
-    vertices = [
-        (330, 375),
-        (370, 375),
-        (400, 405),
-        (430, 375),
-        (470, 375),
-        (410, 415),
-        (470, 455),
-        (430, 455),
-        (400, 425),
-        (370, 455),
-        (330, 455),
-        (390, 415),
-    ]
-    pr.polygon(tela, vertices, (255, 0, 0))
-    pr.flood_fill(tela, (340, 377), (0, 0, 0))
+        # Aplicações do floodfill em áreas que não estavam sendo pintadas
+        pr.flood_fill(screen, (443 ,150), (216, 196, 160))
+        pr.flood_fill(screen, (513, 137), (216, 196, 160))
+        pr.flood_fill(screen, (595, 137), (216, 196, 160))
+        pr.flood_fill(screen, (624, 143), (216, 196, 160))
+        pr.flood_fill(screen, (653, 144), (216, 196, 160))
 
-    escala = 1 + 0.5 * math.sin(tempo)
+        # Botão de Iniciar
+        texto_iniciar = botoes_fonte.render("INICIAR", True, (255,255,255))
+        screen.blit(texto_iniciar, (460,335))
+        pr.ellipisis(screen, 150, 35, (500,350), (245, 185, 78))
+        pr.flood_fill(screen, (370,355), (62, 38, 14))
 
-    points = tr.create_transform(
-        base, theta=angulo, pivot=(400, 225), scale=(escala, escala)
-    )
-    pr.scanline_texture(
-        tela,
-        points,
-        [(0, 0), (0, 1), (1, 1), (1, 0)],
-        text_cox,
-    )
-    angulo += 0.04
-    tempo += 0.1
-    pygame.display.flip()
+        # Coreeção do que não foi pintado direito pelo floodfill entre as letras
+        pr.flood_fill(screen, (540,348), (62, 38, 14))
+        pr.flood_fill(screen, (525, 352), (62, 38, 14))
+
+        # Símbolo do X entre os botões
+        pr.polygon(
+            screen,
+            [(430, 419), (470, 419), (500, 449), (530, 419),
+             (570, 419), (510, 459), (570, 499), (530, 499),
+             (500, 469), (470, 499), (430, 499), (490, 459)],
+            (62, 38, 14)
+        )
+        pr.flood_fill(screen, (500,460), (62, 38, 14))
+
+        # Botão de sair
+        texto_sair = botoes_fonte.render("SAIR", True, (62, 38, 14))
+        screen.blit(texto_sair, (475, 555))
+
+        pr.ellipisis(screen, 150, 35, (500, 570), (62, 38, 14))
+
+        pr.flood_fill(screen, (390, 571), (216, 196, 160))
+
+        # Correção de falhas do floodfill no botão sair
+        pr.flood_fill(screen, (498,571), (216, 196, 160))
+        pr.flood_fill(screen, (521,567), (216, 196, 160))
+
+        # Círculo
+        pr.circle(screen, 55, (500,240), (216, 196, 160))
+        pr.flood_fill(screen, (500,240), (216, 196, 160))
 
 
-pygame.quit()
-sys.exit()
-'''
+
+        # Rotação da coxinha
+        # Definindo a variável da escala
+        escala = 1 + 0.5 * math.sin(tempo)
+        # Definindo a base em que a textura da coxinha está sobre
+        base = [(535, 240), (500, 275), (465, 240),(500, 205)]
+
+        # Variáveis para a rotação
+        CX, CY = 500, 240
+
+        # Rotação e Escala
+        points = base
+
+        points = tr.create_transform(points, delta=(-CX, -CY))
+
+        points = [(x * escala, y * escala) for x, y in points]
+
+        points = tr.create_transform(points, theta=angulo)
+
+        points = tr.create_transform(points, delta=(CX, CY))
+
+        pr.circle(screen, 55, (500, 240), (62, 38, 14))
+        pr.flood_fill(screen, (510, 240), (115, 85, 41))
+
+        pr.scanline_texture(screen, points,[(0, 0), (0, 1), (1, 1), (1, 0)],text_cox)
+
+        angulo += 0.3 # padrão: 0.1
+        tempo += 0.15 # padrão: 0.05
+
+        
+        # Sprites do jogador na tela
+        base_text_player1 = [(100,240),(215,240),(215,500),(100,500)]
+        pr.scanline_texture(screen, base_text_player1, [(0, 0), (1, 0), (1, 1), (0,1)], textura_player)
+
+        base_text_player2 = [(785,240),(900,240),(900,500),(785,500)]
+        pr.scanline_texture(screen, base_text_player2, [(1, 0), (0, 0), (0, 1), (1,1)], textura_player)
+
+if __name__ == 'main':
+    desenhar_menu()

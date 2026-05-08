@@ -2,7 +2,7 @@ import pygame
 import sys
 import mapa as mp
 from classes import *
-import menu2 as mn
+import menu as mn
 from vitoria import desenhar_tela_vitoria
 
 width = 1000
