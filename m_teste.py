@@ -7,17 +7,20 @@ from transforms import *
 import math
 import menu2 as mn
 import mapa as mp
+import vitoria as vt
+
 running = True
 width = 1000
 height = 700
 fullscreen = False
 pygame.init()
+vt.desenhar_tela_vitoria()
 tela = pygame.display.set_mode((width, height))
 
 def get_mouse_pos():
     return pygame.mouse.get_pos()
 #mn.desenhar_menu()
-mp.desenhar_mapa()
+
 while True:
     
     for event in pygame.event.get():
@@ -30,6 +33,7 @@ while True:
             x, y = get_mouse_pos()
             print(x, y)
         ##########################
+    #mp.desenhar_mapa(screen, player1, player2)
     
     pygame.display.flip()
 
