@@ -147,3 +147,6 @@ Arquivo contendo o desenho da tela de vitória após o player 1 ou 2 vencer o jo
 - Andar para esquerda — `⬅`
 - Andar para direita — `➡`
 - Bater — `M`
+
+## Link da gameplay
+- https://youtu.be/Jxgzbrq1d0I
