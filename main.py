@@ -3,6 +3,7 @@ import sys
 import mapa as mp
 from classes import *
 import menu2 as mn
+from vitoria import desenhar_tela_vitoria
 
 width = 1000
 height = 700
@@ -52,7 +53,9 @@ textura2 = [preparar_sprite_transparente(s) for s in sprites_p2]
 player1 = Player(1, screen, losango1, textura, uvs)
 player2 = Player(2, screen, losango2, textura2, uvs2)
 
-while player1.dead_or_alive() and player2.dead_or_alive():
+rodando = True
+
+while rodando:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -75,7 +78,6 @@ while player1.dead_or_alive() and player2.dead_or_alive():
     
     # Desenha o mapa (fica atrás dos jogadores)
     mp.desenhar_mapa(screen, player1, player2)
-
     # O Player.draw_player chama a scanline_texture que agora ignora Alpha 0
     player1.draw_player()
     player2.draw_player()
@@ -84,9 +86,17 @@ while player1.dead_or_alive() and player2.dead_or_alive():
     player1.update_sprite()
     player2.update_sprite()
 
+
+    rodando = player1.dead_or_alive() and player2.dead_or_alive()
+
+    if not rodando:
+        screen.fill((200, 140, 30))
+
     pygame.display.flip()
 
 winner = player1 if player1.dead_or_alive() else player2
-print(f'Player {winner.get_id()} venceu!')
+
+desenhar_tela_vitoria(winner.get_id())
+
 pygame.quit()
 sys.exit()

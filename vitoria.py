@@ -10,7 +10,7 @@ height = 700
 screen = pygame.display.set_mode((width, height))
 
 
-def desenhar_tela_vitoria():
+def desenhar_tela_vitoria(id_player):
     # Nomeação do canva como Menu
     pygame.display.set_caption("Menu")
 
@@ -86,7 +86,7 @@ def desenhar_tela_vitoria():
         pr.flood_fill(screen, (282,133), (216, 196, 160)) # Azul petróleo (0,0,0)
         pr.flood_fill(screen, (335, 146), (216, 196, 160))
 
-        texto_player_vitorioso = titulo_fonte.render("Player", True, (62,38,14))
+        texto_player_vitorioso = titulo_fonte.render(f"Player {id_player}", True, (62,38,14))
         screen.blit(texto_player_vitorioso, (510,110))
 
         # Aplicações do floodfill em áreas que não estavam sendo pintadas
